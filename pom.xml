@@ -11,6 +11,7 @@
     <modules>
         <module>mybatis-test</module>
         <module>spring-test</module>
+        <module>springmvc-test</module>
     </modules>
 
 

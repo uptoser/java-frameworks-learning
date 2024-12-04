@@ -30,7 +30,7 @@ public class AnnotationMain {
 //		test2();
 //		test3();
 //		test4();
-//		juiceMaker2();
+		juiceMaker2();
 //		test5();
 //		test6();
 //		test7();
