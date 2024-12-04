@@ -16,8 +16,8 @@ public class SpringTest {
 	
 //	@Autowired
 //	Printer printer;
-	@Autowired
-Performance performance;
+//	@Autowired
+//Performance performance;
 //	@Value("#{colorPrinter.context()?.toUpperCase()}")
 //	String printerContext;
 //	@Value("#{T(java.lang.Math).random()*10}")
@@ -27,7 +27,7 @@ Performance performance;
 //		System.out.println(printer.context());
 //		System.out.println(printerContext);
 //		System.out.println(random);
-		performance.perform(null);
+//		performance.perform(null);
 	}
 
 }

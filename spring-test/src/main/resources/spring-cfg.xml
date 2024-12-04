@@ -1,13 +1,9 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource"> 
-		<property name="username" value="root" /> <property name="password" value="123456" 
-		/> <property name="driverClass" value="com.mysql.jdbc.Driver" /> <property 
-		name="url" value="jdbc:mysql://localhost:3306/chapter12" /> </bean> -->
 	<!-- 数据库连接池 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
@@ -36,7 +32,7 @@
 		<!-- <constructor-arg value="BATCH"/> -->
 	</bean>
 
-	<!-- <bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+	<!-- <bean id="roleMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.ssm.chapter12.mapper.RoleMapper" />
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate]"/>

@@ -1,6 +1,6 @@
 package com.uptoser.ssm.springmvc.web;
 
-import com.uptoser.ssm.spring.vo.Book;
+import com.uptoser.ssm.springmvc.vo.Book;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 

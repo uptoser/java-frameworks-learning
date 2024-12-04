@@ -15,8 +15,8 @@ public class Audience {
 
 	// @Pointcut("execution(**
 	// me.ibeyond.performance.Performance.perform(Integer)) && args(count)")
-	@Pointcut("execution(** me.ibeyond.performance.Performance.perform(..)) && within(me.ibeyond.*)")
-	public void performance(Integer count) {
+	@Pointcut("execution(* com.uptoser.ssm.springmvc.performance.Performance.perform(..)) ")
+	public void performance() {
 	}
 
 	// @Before("performance(count)")
@@ -33,7 +33,7 @@ public class Audience {
 	// public void demandRefund(Integer count) {
 	// System.out.println("Demanding a refund");
 	// }
-	@Around("execution(** me.ibeyond.performance.Performance.perform(..)) && within(me.ibeyond..*)")
+	@Around("execution(* com.uptoser.ssm.springmvc.performance.Performance.perform(..)) ")
 	public void loading(ProceedingJoinPoint pjp) {
 		try {
 			Signature sig = pjp.getSignature();

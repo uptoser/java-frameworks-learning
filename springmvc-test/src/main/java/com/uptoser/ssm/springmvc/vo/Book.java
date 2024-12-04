@@ -1,6 +1,5 @@
 package com.uptoser.ssm.springmvc.vo;
 
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

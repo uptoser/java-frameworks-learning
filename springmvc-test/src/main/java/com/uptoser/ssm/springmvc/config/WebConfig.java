@@ -1,6 +1,6 @@
 package com.uptoser.ssm.springmvc.config;
 
-import com.uptoser.ssm.spring.exception.DemoInterceptor;
+import com.uptoser.ssm.springmvc.exception.DemoInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

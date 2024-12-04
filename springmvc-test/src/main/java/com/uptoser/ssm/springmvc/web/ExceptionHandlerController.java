@@ -1,6 +1,6 @@
 package com.uptoser.ssm.springmvc.web;
 
-import com.uptoser.ssm.spring.exception.Test1Exception;
+import com.uptoser.ssm.springmvc.exception.Test1Exception;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;

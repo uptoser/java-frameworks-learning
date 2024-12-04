@@ -1,7 +1,8 @@
 package com.uptoser.ssm.springmvc.config;
 
-import com.uptoser.ssm.spring.performance.AopConfig;
-import com.uptoser.ssm.spring.printer.PrinterConfig;
+
+import com.uptoser.ssm.springmvc.performance.AopConfig;
+import com.uptoser.ssm.springmvc.printer.PrinterConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

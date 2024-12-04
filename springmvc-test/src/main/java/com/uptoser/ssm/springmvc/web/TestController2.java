@@ -1,6 +1,6 @@
 package com.uptoser.ssm.springmvc.web;
 
-import com.uptoser.ssm.spring.exception.Test1Exception;
+import com.uptoser.ssm.springmvc.exception.Test1Exception;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.web.bind.annotation.ModelAttribute;
