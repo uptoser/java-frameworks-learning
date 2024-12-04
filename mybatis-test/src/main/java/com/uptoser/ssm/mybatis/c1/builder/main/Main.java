@@ -1,8 +1,8 @@
-package com.uptoser.ssm.mybatis.c1.main;
-import com.uptoser.ssm.mybatis.c1.mapper.RoleMapper;
-import com.uptoser.ssm.mybatis.c1.mapper.RoleMapper2;
-import com.uptoser.ssm.mybatis.c1.pojo.Role;
-import com.uptoser.ssm.mybatis.c1.utils.SqlSessionFactoryUtils;
+package com.uptoser.ssm.mybatis.c1.builder.main;
+import com.uptoser.ssm.mybatis.c1.builder.mapper.RoleMapper;
+import com.uptoser.ssm.mybatis.c1.builder.mapper.RoleMapper2;
+import com.uptoser.ssm.mybatis.c1.builder.pojo.Role;
+import com.uptoser.ssm.mybatis.c1.builder.utils.SqlSessionFactoryUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 

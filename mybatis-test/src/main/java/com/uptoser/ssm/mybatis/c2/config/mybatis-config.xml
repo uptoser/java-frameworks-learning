@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--需要注意的是，MyBatis 配置项的顺序不能颠倒。如果颠倒了它们的顺序，那么在MyBatis启动阶段就会发生异常，导致程序无法运行。-->
+<configuration>
+  <!--采用properties文件方式引入变量-->
+  <properties resource="jdbc.properties"/>
+  <!--settings能深刻影响MyBatis底层的运行，但是在大部分情况下使用默认值便可以运行-->
+  <settings>
+    <!--所有映射器中配置缓存的全局开关 默认true-->
+    <setting name="cacheEnabled" value="true" />
+    <!--延迟加载的全局开关 在特定关联关系中可通过fetchType属性来覆盖 默认false-->
+    <setting name="lazyLoadingEnabled" value="true" />
+    <!--当启用时，对任意延迟属性的调用会使带有延迟加载属性的对象完整加载；反之，每种属性会按需加载 默认false-->
+    <setting name="aggressiveLazyLoading" value="false" />
+    <!--NONE表示取消自动映射；PARTIAL表示只会自动映射，没有定义嵌套结果集和映射结果集；FULL会自动映射任意复杂结果集(无论是否嵌套) 默认PARTIAL-->
+    <setting name="autoMappingBehavior" value="PARTIAL" />
+    <!--是否开启自动驼峰命名规则映射 默认false-->
+    <setting name="mapUnderscoreToCamelCase" value="false" />
+    <!--配置默认执行器。SIMPLE是普通执行器；REUSE会重用预处理语句(prepared statements)；BATCH执行器将重用语句并执行批量更新 默认SIMPLE-->
+    <setting name="defaultExecutorType" value="SIMPLE" />
+  </settings>
+  <!-- 自定义别名(在MyBatis中别名不区分大小写) 也可以通过注解@Alias设置别名 -->
+  <typeAliases>
+<!--    <typeAlias alias="role" type="com.uptoser.ssm.mybatis.c1.builder.pojo.Role"/>-->
+    <!--支持通过包扫描别名-->
+    <package name="com.uptoser.ssm.mybatis.c2.config.pojo"/>
+  </typeAliases>
+  <!--类型处理器-->
+  <typeHandlers/>
+  <!--对象工厂-->
+  <objectFactory type="com.uptoser.ssm.mybatis.c2.config.object_factory.MyObjectFactory">
+<!--    <property name="prop1" value="value1"/>-->
+  </objectFactory>
+  <!--插件-->
+<!--  <plugins>-->
+<!--    <plugin interceptor=""></plugin>-->
+<!--  </plugins>-->
+  <!-- 配置数据库环境 -->
+  <environments default="development">
+    <environment id="development">
+      <!-- 配置事务管理器 -->
+      <transactionManager type="JDBC"/>
+      <!-- 配置数据源 -->
+      <!--属性type="POOLED"代表采用MyBatis内部提供的连接池方式 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${database.driver}" />
+        <property name="url" value="${database.url}" />
+        <property name="username" value="${database.username}" />
+        <property name="password" value="${database.password}" />
+      </dataSource>
+    </environment>
+  </environments>
+  <!--数据库厂商标识-->
+<!--  <databaseIdProvider type=""></databaseIdProvider>-->
+  <!-- 映射文件 -->
+  <mappers>
+    <package name="com.uptoser.ssm.mybatis.c2.config.mapper" />
+  </mappers>
+
+</configuration>

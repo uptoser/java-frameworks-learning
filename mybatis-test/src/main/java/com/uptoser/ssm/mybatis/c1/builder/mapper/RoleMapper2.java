@@ -1,6 +1,6 @@
-package com.uptoser.ssm.mybatis.c1.mapper;
+package com.uptoser.ssm.mybatis.c1.builder.mapper;
 
-import com.uptoser.ssm.mybatis.c1.pojo.Role;
+import com.uptoser.ssm.mybatis.c1.builder.pojo.Role;
 import org.apache.ibatis.annotations.Select;
 
 

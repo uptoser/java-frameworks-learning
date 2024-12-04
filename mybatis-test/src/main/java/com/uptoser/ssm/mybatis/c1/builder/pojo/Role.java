@@ -1,4 +1,4 @@
-package com.uptoser.ssm.mybatis.c1.pojo;
+package com.uptoser.ssm.mybatis.c1.builder.pojo;
 
 public class Role {
 

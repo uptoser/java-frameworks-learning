@@ -1,11 +1,11 @@
-package com.uptoser.ssm.mybatis.c1.utils;
+package com.uptoser.ssm.mybatis.c1.builder.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.uptoser.ssm.mybatis.c1.mapper.RoleMapper;
-import com.uptoser.ssm.mybatis.c1.mapper.RoleMapper2;
-import com.uptoser.ssm.mybatis.c1.pojo.Role;
+import com.uptoser.ssm.mybatis.c1.builder.mapper.RoleMapper;
+import com.uptoser.ssm.mybatis.c1.builder.mapper.RoleMapper2;
+import com.uptoser.ssm.mybatis.c1.builder.pojo.Role;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.mapping.Environment;
@@ -32,7 +32,7 @@ public class SqlSessionFactoryUtils {
 			if (sqlSessionFactory != null) {
 				return sqlSessionFactory;
 			}
-			String resource = "mybatis-config.xml";
+			String resource = "com/uptoser/ssm/mybatis/c1/builder/mybatis-config.xml";
 			InputStream inputStream;
 			try {
 				inputStream = Resources.getResourceAsStream(resource);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <!--采用properties文件方式引入变量-->
+  <properties resource="jdbc.properties">
+    <!--采用property子元素方式引入变量-->
+    <!-- <property name="database.driver" value="com.mysql.jdbc.Driver"/> <property
+        name="database.url" value="jdbc:mysql://localhost:3306/chapter4"/> <property
+        name="database.username" value="root"/> <property name="database.password"
+        value="123456"/> -->
+  </properties>
+
+  <settings>
+    <setting name="lazyLoadingEnabled" value="true" />
+    <setting name="aggressiveLazyLoading" value="false" />
+  </settings>
+
+  <typeAliases><!-- 别名 -->
+      <typeAlias alias="role" type="com.uptoser.ssm.mybatis.c1.builder.pojo.Role"/>
+  </typeAliases>
+  <!-- 数据库环境 -->
+  <environments default="development">
+    <environment id="development">
+      <!-- 配置事务管理器 -->
+      <transactionManager type="JDBC"/>
+      <!-- 配置数据库 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${database.driver}" />
+        <property name="url" value="${database.url}" />
+        <property name="username" value="${database.username}" />
+        <property name="password" value="${database.password}" />
+      </dataSource>
+
+      <!--属性type="POOLED"代表采用MyBatis内部提供的连接池方式 -->
+<!--      <dataSource type="POOLED">-->
+<!--        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+<!--        <property name="url" value="jdbc:mysql://192.168.3.200:3306/mybatis-test"/>-->
+<!--        <property name="username" value="mysql"/>-->
+<!--        <property name="password" value="mysql"/>-->
+<!--      </dataSource>-->
+
+    </environment>
+  </environments>
+  <!-- 映射文件 -->
+  <mappers>
+    <mapper resource="com/uptoser/ssm/mybatis/c1/builder/mapper/RoleMapper.xml"/>
+    <mapper class="com.uptoser.ssm.mybatis.c1.builder.mapper.RoleMapper2"/>
+  </mappers>
+</configuration>
