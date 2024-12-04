@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.minglyon" })
+@ComponentScan(basePackages = { "com.uptoser" })
 // @Profile({"dev", "local"})//在生产环境不开启
 public class SwaggerConfig extends WebMvcConfigurationSupport{
 	private boolean state = true;// 开启接口

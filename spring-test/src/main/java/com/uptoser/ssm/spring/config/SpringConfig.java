@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
-@ComponentScan("me.ibeyond")
+@ComponentScan("com.uptoser")
 @Import({ PrinterConfig.class, AopConfig.class })
 public class SpringConfig {
 
