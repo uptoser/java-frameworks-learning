@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd        
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	<!--该行代码如同注解@EnableAspectJAutoProxy，采用的也是自动代理的功能。-->
+	<aop:aspectj-autoproxy />
+	<bean id="roleAspect" class="com.uptoser.ssm.spring.c3.aop.aop.aspect.RoleAspect" />
+	<bean id="roleService" class="com.uptoser.ssm.spring.c3.aop.aop.service.impl.RoleServiceImpl" />
+</beans>
