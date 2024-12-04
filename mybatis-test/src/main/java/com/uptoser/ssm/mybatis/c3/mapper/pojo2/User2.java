@@ -1,18 +1,20 @@
-package com.uptoser.ssm.mybatis.c2.config.pojo;
-
+package com.uptoser.ssm.mybatis.c3.mapper.pojo2;
 
 import com.uptoser.ssm.mybatis.c2.config.enumeration.SexEnum;
 
-public class User {
+import java.util.List;
+
+public class User2 {
 	private Long id;
 	private String userName;
+	private String realName;
 	private SexEnum sex;
-	private String mobile;
-	private String tel;
+	private String moble;
 	private String email;
 	private String note;
+	// �Խ�ɫһ�Զ����
+	private List<Role2> roleList;
 
-	/** setter and getter **/
 	public Long getId() {
 		return id;
 	}
@@ -29,6 +31,13 @@ public class User {
 		this.userName = userName;
 	}
 
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
 
 	public SexEnum getSex() {
 		return sex;
@@ -38,20 +47,12 @@ public class User {
 		this.sex = sex;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getMoble() {
+		return moble;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setMoble(String moble) {
+		this.moble = moble;
 	}
 
 	public String getEmail() {
@@ -68,6 +69,14 @@ public class User {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public List<Role2> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<Role2> roleList) {
+		this.roleList = roleList;
 	}
 
 }
