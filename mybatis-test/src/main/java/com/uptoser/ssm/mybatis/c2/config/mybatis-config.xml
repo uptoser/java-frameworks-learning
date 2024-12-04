@@ -36,14 +36,21 @@
 <!--  <plugins>-->
 <!--    <plugin interceptor=""></plugin>-->
 <!--  </plugins>-->
-  <!-- 配置数据库环境 -->
+  <!-- 配置运行环境 -->
   <environments default="development">
     <environment id="development">
       <!-- 配置事务管理器 -->
-      <transactionManager type="JDBC"/>
+      <!--JDBC使用JdbcTransactionFactory生成的JdbcTransaction对象实现。它是以JDBC的方式对数据库的提交和回滚进行操作。-->
+<!--      <transactionManager type="JDBC"/>-->
+<!--      <transactionManager type="MANAGED"/>-->
+      <!-- 自定义事务工厂 -->
+      <transactionManager type="com.uptoser.ssm.mybatis.c2.config.transaction_factory.MyTransactionFactory"/>
       <!-- 配置数据源 -->
-      <!--属性type="POOLED"代表采用MyBatis内部提供的连接池方式 -->
-      <dataSource type="POOLED">
+      <!-- 使用Dbcp自定义数据源工厂 -->
+        <dataSource type="com.uptoser.ssm.mybatis.c2.config.datasource_factory.DbcpDataSourceFactory">
+<!--      <dataSource type="POOLED">属性type="POOLED"代表采用MyBatis内部提供的连接池方式-->
+<!--      <dataSource type="UNPOOLED"> UNPOOLED采用非数据库池的管理方式-->
+<!--      <dataSource type="JNDI">数据源JNDI的实现是为了能在如EJB或应用服务器这类容器中使用，容器可以集中或在外部配置数据源，然后放置一个JNDI上下文的引用-->
         <property name="driver" value="${database.driver}" />
         <property name="url" value="${database.url}" />
         <property name="username" value="${database.username}" />
@@ -52,7 +59,12 @@
     </environment>
   </environments>
   <!--数据库厂商标识-->
-<!--  <databaseIdProvider type=""></databaseIdProvider>-->
+    <!--当databaseIdProvidertype属性被配置时，系统会优先取到和数据库配置一致的SQL。如果没有，则取没有databaseId的SQL，可以把它当作默认值。如果还是取不到，则会抛出异常-->
+<!--  <databaseIdProvider type="DB_VENDOR">-->
+<!--    <property name="Oracle" value="oracle"/>-->
+<!--      <property name="MYSQL" value="mysql"/>-->
+<!--      <property name="DB2" value="db2"/>-->
+<!--  </databaseIdProvider>-->
   <!-- 映射文件 -->
   <mappers>
     <package name="com.uptoser.ssm.mybatis.c2.config.mapper" />
