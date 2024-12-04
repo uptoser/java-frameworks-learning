@@ -41,7 +41,7 @@ public class AopMain {
 	}
 	
 	private static void testAopParams() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring-cfg3.xml");
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:com/uptoser/ssm/spring/c3/aop/spring-cfg3.xml");
 		Role role = new Role();
 		role.setId(1L);
 		role.setRoleName("role_name_1");
