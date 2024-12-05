@@ -2,6 +2,7 @@ package com.uptoser.ssm.redis.pojo;
 
 import java.io.Serializable;
 
+//为要序列化对象，所以需要实现 Serializable 接口，表明它能够序列化，而serialVersionUID代表的是序列化的版本编号。
 public class Role implements Serializable {
 	
 	private static final long serialVersionUID = 6977402643848374753L;

@@ -12,6 +12,8 @@
        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/context 
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!--使用Spring配置JedisPoolConfig对象-->
 	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
 		<!--最大空闲数 -->
 		<property name="maxIdle" value="50" />
@@ -21,23 +23,39 @@
 		<property name="maxWaitMillis" value="20000" />
 	</bean>
 
+<!--	在使用Spring提供的RedisTemplate之前需要配置Spring所提供的连接工厂，在Spring Data Redis方案中它提供了4种工厂模型。-->
+<!--	●JredisConnectionFactory。-->
+<!--	●JedisConnectionFactory。-->
+<!--	●LettuceConnectionFactory。-->
+<!--	●SrpConnectionFactory。-->
 	<bean id="connectionFactory"
 		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<property name="hostName" value="localhost" />
+		<property name="hostName" value="192.168.3.200" />
 		<property name="port" value="6379" />
 		<!--<property name="password" value="paasword"/> -->
+		<!--连接池配置对象，可以设置连接池的属性-->
 		<property name="poolConfig" ref="poolConfig" />
 	</bean>
 
+<!--	可以选择Spring提供的方案去处理序列化，当然也可以去实现在spring data redis中定义的RedisSerializer接口，-->
+<!--	在Spring中提供了以下几种实现RedisSerializer接口的序列化器。-->
+<!--	●GenericJackson2JsonRedisSerializer，通用的使用Json2.jar的包，将Redis对象的序列化器。-->
+<!--	●Jackson2JsonRedisSerializer<T>，通过Jackson2.jar包提供的序列化进行转换。-->
+<!--	●JdkSerializationRedisSerializer<T>，使用JDK的序列化器进行转化。-->
+<!--	●OxmSerializer，使用Spring O/X 对象Object和XML相互转换。-->
+<!--	●StringRedisSerializer，使用字符串进行序列化。-->
+<!--	●GenericToStringSerializer，通过通用的字符串序列化进行相互转换。-->
 	<bean id="jdkSerializationRedisSerializer"
 		class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
-		
 	<bean id="stringRedisSerializer"
 		class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-		
+
+<!--	RedisTemplate是Spring Data Redis的核心类，它提供了对Redis访问的支持。-->
+<!--	这个类在给定对象和Redis存储中的底层二进制数据之间执行自动序列化（Serialization）和反序列化（Deserialization）操作。-->
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="defaultSerializer" ref="stringRedisSerializer" />
 		<property name="keySerializer" ref="stringRedisSerializer" />
-		<property name="valueSerializer" ref="jdkSerializationRedisSerializer" />
+		<property name="valueSerializer" ref="stringRedisSerializer" />
 	</bean>
 </beans>
