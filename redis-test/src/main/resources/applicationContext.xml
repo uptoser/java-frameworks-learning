@@ -58,4 +58,40 @@
 		<property name="keySerializer" ref="stringRedisSerializer" />
 		<property name="valueSerializer" ref="stringRedisSerializer" />
 	</bean>
+
+	<!--为了在Spring中使用Redis发布订阅监听类，需要对其进行配置。-->
+	<bean id="redisMsgListener"
+		  class="com.uptoser.ssm.redis.listener.RedisMessageListener">
+		<property name="redisTemplate" ref="redisTemplate" />
+	</bean>
+	<!--
+		有了监听类还不能进行测试。为了进行测试，要给一个监听容器，
+		在Spring中已有类org.springframework.data.redis.listener.RedisMessageListenerContainer
+		它可以用于监听Redis的发布订阅消息
+	-->
+	<bean id="topicContainer"
+		  class="org.springframework.data.redis.listener.RedisMessageListenerContainer"
+		  destroy-method="destroy">
+		<!--Redis连接工厂 -->
+		<property name="connectionFactory" ref="connectionFactory" />
+		<!--连接池，这里只要线程池生存，才能继续监听 -->
+		<property name="taskExecutor">
+			<bean
+					class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler">
+				<property name="poolSize" value="2" />
+			</bean>
+		</property>
+		<!--消息监听Map -->
+		<property name="messageListeners">
+			<map>
+				<!--配置监听者,进行对渠道chat的监听,key-ref和bean id定义一致,当消息通过渠道chat发送的时候，就会使用id为redisMsgListener的Bean进行处理消息-->
+				<entry key-ref="redisMsgListener">
+					<!--监听类 -->
+					<bean class="org.springframework.data.redis.listener.ChannelTopic">
+						<constructor-arg value="chat" />
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
 </beans>
