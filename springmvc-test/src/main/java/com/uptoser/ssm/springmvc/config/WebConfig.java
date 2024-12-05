@@ -12,6 +12,10 @@ import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
+/*
+当XML配置文件加入了元素<mvc:annotation-driven>或者使用Java配置使用注解@EnableWebMvc时，
+系统就会初始化拦截器ConversionServiceExposingInterceptor,它是个一开始就被 Spring MVC 系统默认加载的拦截器
+ */
 @EnableWebMvc
 @ComponentScan("com.uptoser")
 public class WebConfig extends WebMvcConfigurerAdapter {
