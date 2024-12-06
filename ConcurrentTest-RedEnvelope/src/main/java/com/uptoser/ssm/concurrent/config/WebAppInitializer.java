@@ -34,7 +34,7 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	@Override
 	protected void customizeRegistration(Dynamic dynamic) {
 		// 配置上传文件路径
-		String filepath = "e:/mvc/uploads";
+		String filepath = "d:/mvc/uploads";
 		// 5MB
 		Long singleMax = (long) (5 * Math.pow(2, 20));
 		// 10MB

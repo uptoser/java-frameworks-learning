@@ -47,10 +47,10 @@ public class RootConfig implements TransactionManagementConfigurer {
 			return dataSource;
 		}
 		Properties props = new Properties();
-		props.setProperty("driverClassName", "com.mysql.jdbc.Driver");
-		props.setProperty("url", "jdbc:mysql://localhost:3306/chapter22");
-		props.setProperty("username", "root");
-		props.setProperty("password", "123456");
+		props.setProperty("driverClassName", "com.mysql.cj.jdbc.Driver");
+		props.setProperty("url", "jdbc:mysql://192.168.3.200:3306/red-packet");
+		props.setProperty("username", "mysql");
+		props.setProperty("password", "mysql");
 		props.setProperty("maxActive", "200");
 		props.setProperty("maxIdle", "20");
 		props.setProperty("maxWait", "30000");
@@ -113,7 +113,7 @@ public class RootConfig implements TransactionManagementConfigurer {
 		poolConfig.setMaxWaitMillis(20000);
 		//创建Jedis链接工厂
 		JedisConnectionFactory connectionFactory = new JedisConnectionFactory(poolConfig);
-		connectionFactory.setHostName("localhost");
+		connectionFactory.setHostName("192.168.3.200");
 		connectionFactory.setPort(6379);
 		//调用后初始化方法，没有它将抛出异常
 		connectionFactory.afterPropertiesSet();
