@@ -13,6 +13,7 @@
         <module>spring-test</module>
         <module>springmvc-test</module>
         <module>redis-test</module>
+        <module>ConcurrentTest-RedEnvelope</module>
     </modules>
 
 
