@@ -12,6 +12,7 @@
         <module>mybatis-test</module>
         <module>spring-test</module>
         <module>springmvc-test</module>
+        <module>ssm-test</module>
         <module>redis-test</module>
         <module>ConcurrentTest-RedEnvelope</module>
     </modules>
