@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	
+	<welcome-file-list>
+		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 配置Spring IoC配置文件路径 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	<!-- 配置ContextLoaderListener用以初始化Spring IoC容器 -->
+	<!--
+	Java Web容器为其生命周期中提供ServletContextListener接口，这个接口可以在Web容器初始化和结束期中执行一定的逻辑，
+	换句话说，通过实现它可以使得在DispatcherServlet 初始化前就可以完成 Spring IoC 容器的初始化，
+	也可以在结束期完成对Spring IoC容器的销毁，只要实现ServletContextListener接口的方法就可以了。
+	-->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 配置DispatcherServlet -->
+	<servlet>
+		<!-- Spring MVC框架会根据servlet-name配置，找到/WEB-INF/dispatcher-servlet.xml作为配置文件载入Web工程中 -->
+		<!--
+		DispatcherServlet的父类是FrameworkServlet(抽象类)，而FrameworkServlet的父类则是HttpServletBean(抽象类)。
+		HttpServletBean继承了Web容器所提供的HttpServlet，所以它是一个可以载入Web容器中的Servlet。
+		Web容器对于Servlet的初始化，首先是调用其init方法，对于DispatcherServlet也是如此，这个方法位于它的父类HttpServletBean
+
+		在类HttpServletBean中可以看到 initServletBean 方法，在 FrameworkServlet 中也可以看到它，
+		我们知道子类的方法会覆盖掉父类的方法，所以着重看FrameworkServlet中的initServletBean方法
+		......
+		try {
+			//初始化Spring IoC容器
+			this.webApplicationContext = this.initWebApplicationContext();
+			this.initFrameworkServlet();
+		}
+		......
+		当 IoC 容器没有对应的初始化的时候，DispatcherServlet会尝试去初始化它，最后调度onRefresh方法
+		而onRefresh这个方法就在DispatcherServlet中
+
+		protected void initStrategies(ApplicationContext context) {
+			//文件解析器，用于支持服务器的文件上传
+			this.initMultipartResolver(context);
+			//国际化解析器，可以提供国际化的功能
+			this.initLocaleResolver(context);
+			//主题解析器，类似于软件皮肤的转换功能
+			this.initThemeResolver(context);
+			//Spring MVC中十分重要的内容，它会包装用户提供一个控制器的方法和对它的一些拦截器，通过调用它就能够运行控制器
+			this.initHandlerMappings(context);
+			//处理器适配器，因为处理器会在不同的上下文中运行，所以Spring MVC 会先找到合适的适配器，然后运行处理器服务方法
+			this.initHandlerAdapters(context);
+			//处理器异常解析器，处理器有可能产生异常，如果产生异常，则可以通过异常解析器来处理它
+			this.initHandlerExceptionResolvers(context);
+			//视图逻辑名称转换器，有时候在控制器中返回一个视图的名称，通过它可以找到实际的视图
+			this.initRequestToViewNameTranslator(context);
+			//视图解析器，当控制器返回后，通过视图解析器会把逻辑视图名称进行解析，然后定位实际视图
+			this.initViewResolvers(context);
+			//这是一个关注Flash开发的Map管理器
+			this.initFlashMapManager(context);
+		}
+		-->
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 使得Dispatcher在服务器启动的时候就初始化 -->
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<!-- Servlet拦截配置 -->
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>
