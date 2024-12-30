@@ -1,6 +1,7 @@
 package com.uptoser.ssm.springmvc.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,6 +45,31 @@ public class MyController {
 		mv.setViewName("index");
 		return mv;
 	}
+
+	/**
+	 * 实现重定向功能
+	 */
+	@RequestMapping(value = "redirect", method = RequestMethod.GET)
+	public String redirect() {
+		return "redirect:./params.do";
+	}
+
+	/**
+	 * 实现重定向功能
+	 * 这里的Model代表的是一个数据模型，你可以给它附上对应的数据模型，然后通过返回字符串来实现重定向的功能
+	 *
+	 * 在控制器的方法中，可以把ModelAndView、Model、ModelMap作为参数。
+	 * 在Spring MVC运行的时候，会自动初始化它们，因此可以选择ModelMap或者Model作为数据模型
+	 */
+	@RequestMapping(value = "redirect2", method = RequestMethod.GET)
+	public String redirect2(Model model) {
+		//插入角色后，会回填角色编号
+		//绑定重定向数据模型
+		model.addAttribute("roleName", 123);
+		model.addAttribute("note", 123);
+		model.addAttribute("id", 123);
+		return "redirect:./showRoleJsonInfo.do";
+	}
 	@RequestMapping(value = "form", method = RequestMethod.GET)
 	public String form() {
 		return "form";
@@ -52,6 +78,8 @@ public class MyController {
 	public String params() {
 		return "params";
 	}
+
+
 
 
 }

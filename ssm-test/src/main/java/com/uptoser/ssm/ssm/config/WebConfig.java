@@ -34,10 +34,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return multipartResolver;
 	}
 
-	@Bean
-	public MultipartResolver multipartResolver2() {
-		return new StandardServletMultipartResolver();
-	}
+//	@Bean
+//	public MultipartResolver multipartResolver2() {
+//		return new StandardServletMultipartResolver();
+//	}
 
 	@Override // 静态资源？
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {

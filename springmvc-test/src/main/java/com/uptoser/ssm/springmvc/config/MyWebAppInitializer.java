@@ -2,6 +2,9 @@ package com.uptoser.ssm.springmvc.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.MultipartConfigElement;
+import javax.servlet.ServletRegistration;
+
 /**
  * 使用该类去代替 WEB.XML 的配置
  * Servlet3.0之后的版本允许动态加载 Servlet，只是按照规范需要实现ServletContainerInitializer接口
@@ -56,14 +59,23 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 
 	/**
 	 * servlet文件上传配置
+	 *
+	 * 这是一个用于初始化DispatcherServlet设置的方法，
+	 * 是在Servlet3.0及以上版本的基础上实现的，
 	 */
-//	@Override
-//	protected void customizeRegistration(Dynamic registration) {
-//		registration.setMultipartConfig(new MultipartConfigElement("C:\\temp",4000001,400000000,0));
-//		super.customizeRegistration(registration);
-//	}
-
-	/**
+	@Override
+	protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+		//文件上传路径
+		String filepath = "c:/temp";
+		//5MB
+		Long singleMax = (long) (5*Math.pow(2, 20));
+		//10MB
+		Long totalMax = (long) (10*Math.pow(2, 20));
+		//配置MultipartResolver，限制请求，单个文件5MB，总共文件10MB
+		registration.setMultipartConfig(new MultipartConfigElement(filepath, singleMax, totalMax, 0));
+		super.customizeRegistration(registration);
+	}
+/**
 	 * EncodingFilter
 	 */
 //	@Override

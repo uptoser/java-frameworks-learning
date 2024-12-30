@@ -13,7 +13,7 @@
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
 </head>
 <body>
-	<form action="upload/upload" enctype="multipart/form-data" method="post">
+	<form action="file/upload" enctype="multipart/form-data" method="post">
 		<input type="file" name="file"><br/>
 		<input type="submit" value="上传">
 	</form>
