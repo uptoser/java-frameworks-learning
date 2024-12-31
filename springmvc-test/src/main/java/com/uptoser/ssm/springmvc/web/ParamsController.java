@@ -10,8 +10,26 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.util.List;
 
 /**
- * 测试请求参数
+ * CrossOrigin注解属性
+ * value             同 origms 属性一样
+ * origins           所有支持域的集合，如果没有定义，默认支持所有域
+ * allowedHeaders    请求头中的请求列表
+ * exposedHeaders    客户端允许访问的响应头列表
+ * methods           请求支持的方法，默认支持 RequestMapp ing 中设置的方法
+ * allowCredentials  包含与请求的域相关的 Cookie ，使用时必须指定具体的域
+ * maxAge            响应前的缓存最大有效时间，单位是秒
+ *
+ * RequestHeader注解
+ * CookieValue注解
+ * RequestAttribute注解
+ * SessionAttribute注解
+ * SessionAttributes注释
+ * ModelAttribute注解
+ * RequestBody注解
+ * ResponseBody注解
+ *
  */
+@CrossOrigin
 @Controller
 @RequestMapping("/params")
 public class ParamsController {
@@ -54,6 +72,8 @@ public class ParamsController {
 	}
 	/**
 	 * 通过URL传递参数获取角色信息
+	 *
+	 * MatrixVariable注解可以拓展URL请求地址的功能，使用@MatrixVariable 注解时多个变量可以使用；（分号）分隔
 	 */
 	@RequestMapping("/getRole/{id}")
 	//注解@PathVariable表示从URL的请求地址中获取参数

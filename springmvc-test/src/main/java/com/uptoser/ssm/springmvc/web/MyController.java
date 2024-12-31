@@ -5,6 +5,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 于使用了@Controller 注解，因此不需要再在配置文件中使用 XML 描述 Bean。
+ * ＜context：component-scan base-package=＂org.fkit.controller＂/＞
+ * 指定需要Spring扫描org.fkit.controller包及其子包下面的所有java文件
+ *
+ * ＜mvc：annotation-driven＞ 会 自 动 注 册 RequestMappingHandlerMapping 与 Request MappingHandlerAdapter两个Bean，
+ * 这是Spring MVC为@Controllers分发请求所必需的，并提供了数据绑定支持、@NumberFormatannotation支持、@DateTimeFormat支持
+ * 、@Valid支持、读写 XML 的支持（JAXB）和读写 JSON 的支持（默认为 Jackson）等功能。本例处理 Ajax请求时，就使用到了对JSON的支持功能
+ *
+ * 当在springmvc-config.xml中配置＜mvc：default-servlet-handler/＞后，
+ * 会在Spring MVC上下文中定义一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler，
+ * 它就像一个检查员，对进入DispatcherServlet的URL进行筛查
+ *
+ * 使用@RequestMapping注解可指定以下的属性：
+ * 1.value属性 用来处理请求地址映射
+ * 2.method属性 该属性用来指示该方法仅处理哪些HTTP请求方式。
+ * 3.consumes属性 该属性指定处理请求的提交内容类型（Content-Type）
+ * 4.produces属性 该属性指定返回的内容类型，返回的内容类型必须是 request 请求头（Accept）中所包含的类型。
+ * 5.params属性 该属性指定request中必须包含某些参数值时，才让该方法处理。
+ * 6.headers属性 该属性指定request中必须包含某些参数值时，才让该方法处理。
+ *
+ */
 @Controller
 @RequestMapping("/")
 public class MyController {
