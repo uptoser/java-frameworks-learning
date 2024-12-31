@@ -13,6 +13,10 @@
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
 </head>
 <body>
-	<pre>HelloWorld</pre>
+	<pre>HelloWorld</pre><br>
+	<a href="./formPage">form</a><br>
+	<a href="./paramsPage">params</a><br>
+	<a href="./uploadPage">upload</a><br>
+	<a href="./validatePage">validate</a><br>
 </body>
 </html>

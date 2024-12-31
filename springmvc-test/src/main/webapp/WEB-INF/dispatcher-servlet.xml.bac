@@ -7,8 +7,40 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
-	<!-- 使用注解驱动 -->
+	<!-- 先用以前的复杂形式 -->
+	        <!-- 启用注解处理器 -->
+	        <context:annotation-config/>
+          <!-- 配置请求映射处理器 -->
+          <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"></bean>
+          <!-- 配置请求映射适配器，并添加消息转换器 -->
+          <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+            <property name="messageConverters">
+              <list>
+                <!--可添加其他的转换器-->
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="supportedMediaTypes">
+                        <list>
+                            <value>application/json;charset=UTF-8</value>
+                        </list>
+                    </property>
+                </bean>
+                <!-- 如果需要使用 FastJson，可以添加 FastJsonHttpMessageConverter -->
+                <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter"/>
+              </list>
+            </property>
+          </bean>
+          <!-- 配置 FormattingConversionServiceFactoryBean -->
+          <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+              <property name="formatters">
+                  <set>
+                      <!-- 添加自定义的 Formatter 或 Converter -->
+                      <bean class="com.example.MyCustomFormatter"/>
+                  </set>
+              </property>
+          </bean>
+	<!-- 使用注解驱动 是以上的简写 -->
 	<mvc:annotation-driven />
+
 	<!-- 定义扫描装载的包 -->
 	<context:component-scan base-package="com.*" />
 	<!-- 定义视图解析器 -->

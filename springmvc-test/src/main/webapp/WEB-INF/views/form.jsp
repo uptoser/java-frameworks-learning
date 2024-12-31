@@ -11,7 +11,7 @@
             	var str = $("form").serialize();
             	//提交表单
             	$.post({
-                    url: "./params/commonParamPojo2.do",
+                    url: "./params/commonParamPojo2",
                     //将form数据序列化，传递给后台，则将数据以roleName=xxx&&note=xxx传递
                     data: $("form").serialize(),
                     //成功后的方法

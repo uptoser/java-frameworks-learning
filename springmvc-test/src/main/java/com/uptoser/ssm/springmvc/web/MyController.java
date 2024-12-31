@@ -2,10 +2,7 @@ package com.uptoser.ssm.springmvc.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -29,7 +26,7 @@ public class MyController {
 	 * ●defaultValue 的默认值为"\n\t\t\n\t\t\n\uE000\uE001\uE002\n\t\t\t\t\n"，可以通过配置修改它为你想要的内容。
 	 */
 	@RequestMapping(value = "index2", method = RequestMethod.GET)
-	public ModelAndView index2(@RequestParam(value = "id") Long id) {
+	public ModelAndView index2(@RequestParam(value = "id",required = false,defaultValue = "111") Long id) {
 		System.out.println("id = "+id);
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
@@ -50,8 +47,9 @@ public class MyController {
 	 * 实现重定向功能
 	 */
 	@RequestMapping(value = "redirect", method = RequestMethod.GET)
-	public String redirect() {
-		return "redirect:./params.do";
+	public String redirect(Model model) {
+		model.addAttribute("key", 123);
+		return "redirect:./paramsPage";
 	}
 
 	/**
@@ -70,14 +68,8 @@ public class MyController {
 		model.addAttribute("id", 123);
 		return "redirect:./showRoleJsonInfo.do";
 	}
-	@RequestMapping(value = "form", method = RequestMethod.GET)
-	public String form() {
-		return "form";
-	}
-	@RequestMapping(value = "params", method = RequestMethod.GET)
-	public String params() {
-		return "params";
-	}
+
+
 
 
 

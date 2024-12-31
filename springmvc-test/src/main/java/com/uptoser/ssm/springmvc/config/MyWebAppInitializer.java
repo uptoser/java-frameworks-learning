@@ -1,7 +1,9 @@
 package com.uptoser.ssm.springmvc.config;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration;
 
@@ -54,7 +56,8 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 	 */
 	@Override
 	protected String[] getServletMappings() {
-		return new String[] { "*.do" };
+//		return new String[] { "*.do" };
+		return new String[] { "/" };
 	}
 
 	/**
@@ -75,15 +78,15 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
 		registration.setMultipartConfig(new MultipartConfigElement(filepath, singleMax, totalMax, 0));
 		super.customizeRegistration(registration);
 	}
-/**
+	/**
 	 * EncodingFilter
 	 */
-//	@Override
-//	protected Filter[] getServletFilters() {
-//		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-//		characterEncodingFilter.setEncoding("utf-8");
-//		return new Filter[] { characterEncodingFilter };
-//	}
+	@Override
+	protected Filter[] getServletFilters() {
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("utf-8");
+		return new Filter[] { characterEncodingFilter };
+	}
 	
 	
 
