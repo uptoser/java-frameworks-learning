@@ -31,4 +31,12 @@ public class Role {
 		this.note = note;
 	}
 
+	@Override
+	public String toString() {
+		return "Role{" +
+				"id=" + id +
+				", roleName='" + roleName + '\'' +
+				", note='" + note + '\'' +
+				'}';
+	}
 }

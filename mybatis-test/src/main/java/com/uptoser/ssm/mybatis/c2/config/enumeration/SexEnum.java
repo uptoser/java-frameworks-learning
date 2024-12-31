@@ -1,18 +1,18 @@
 package com.uptoser.ssm.mybatis.c2.config.enumeration;
 
 public enum SexEnum {
-	MALE(1, "男"),
-	FEMALE(0, "女");
+	MALE(0, "男"),
+	FEMALE(1, "女");
 
-	private int id;
+	private int key;
 	private String name;
 
-	public int getId() {
-		return id;
+	public int getKey() {
+		return key;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setKey(int key) {
+		this.key = key;
 	}
 
 	public String getName() {
@@ -23,14 +23,14 @@ public enum SexEnum {
 		this.name = name;
 	}
 
-	SexEnum(int id, String name) {
-		this.id = id;
+	SexEnum(int key, String name) {
+		this.key = key;
 		this.name = name;
 	}
 
-	public static SexEnum getSexById(int id) {
+	public static SexEnum getSexByKey(int key) {
 		for (SexEnum sex : SexEnum.values()) {
-			if (sex.getId() == id) {
+			if (sex.getKey() == key) {
 				return sex;
 			}
 		}

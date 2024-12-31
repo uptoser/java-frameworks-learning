@@ -6,14 +6,12 @@
 	<resultMap id="userMapper" type="user">
 		<result property="id" column="id" />
 		<result property="userName" column="user_name" />
-<!--		<result property="sex" column="sex" -->
-<!--            typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>-->
-        <!-- 
-        <result property="sex" column="sex" 
-            typeHandler="org.apache.ibatis.type.EnumTypeHandler"/> 
-        -->
-        <result property="sex" column="sex"
-            typeHandler="com.uptoser.ssm.mybatis.c2.config.type_handler.SexEnumTypeHandler"/>
+		<result property="sex" column="sex"
+            typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+<!--        <result property="sex" column="sex"-->
+<!--            typeHandler="org.apache.ibatis.type.EnumTypeHandler"/> -->
+<!--        <result property="sex" column="sex"-->
+<!--            typeHandler="com.uptoser.ssm.mybatis.c2.config.type_handler.SexEnumTypeHandler"/>-->
 		<result property="mobile" column="mobile" />
 		<result property="tel" column="tel" />
 		<result property="email" column="email" />

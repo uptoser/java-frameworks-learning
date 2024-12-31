@@ -6,7 +6,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.uptoser</groupId>
 	<artifactId>spring-test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
@@ -54,13 +53,6 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
 		</dependency>
-		<!-- tomcat -->
-<!--		<dependency>-->
-<!--			<groupId>org.apache.tomcat</groupId>-->
-<!--			<artifactId>tomcat-jsp-api</artifactId>-->
-<!--			<version>8.0.47</version>-->
-<!--			<scope>provided</scope>-->
-<!--		</dependency>-->
 
 		<!-- Spring -->
 		<dependency>

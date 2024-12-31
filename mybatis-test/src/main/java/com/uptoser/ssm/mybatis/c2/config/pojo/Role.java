@@ -5,7 +5,6 @@ import org.apache.ibatis.type.Alias;
 //可以在POJO中设置别名 这样可以避免别名重复
 @Alias("role")
 public class Role {
-
 	private Long id;
 	private String roleName;
 	private String note;
@@ -35,4 +34,12 @@ public class Role {
 		this.note = note;
 	}
 
+	@Override
+	public String toString() {
+		return "Role{" +
+				"id=" + id +
+				", roleName='" + roleName + '\'' +
+				", note='" + note + '\'' +
+				'}';
+	}
 }

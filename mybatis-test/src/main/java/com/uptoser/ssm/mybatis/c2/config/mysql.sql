@@ -1,40 +1,78 @@
+/*
+ Navicat Premium Data Transfer
 
-create table t_role (
-id int(12) auto_increment,
-role_name varchar(60) not null,
-note varchar(256) null,
-primary key(id)
-);
+ Source Server         : 192.168.3.200_3306
+ Source Server Type    : MySQL
+ Source Server Version : 80028
+ Source Host           : 192.168.3.200:3306
+ Source Schema         : mybatis-test
 
-insert into t_role(role_name, note) values('role_name_1', 'note_1');
-insert into t_role(role_name, note) values('role_name_2', 'note_2');
-insert into t_role(role_name, note) values('role_name_3', 'note_3');
+ Target Server Type    : MySQL
+ Target Server Version : 80028
+ File Encoding         : 65001
 
-create table t_user
-(
-   id                   int(12) not null auto_increment,
-   user_name            varchar(60) not null,
-   password             varchar(60) not null,
-   sex                  char(1) not null,
-   mobile               varchar(20) not null,
-   tel                  varchar(20),
-   email                varchar(60),
-   note                 varchar(512),
-   primary key (id)
-);
+ Date: 31/12/2024 17:09:13
+*/
 
-insert into  t_user(user_name, `password`, sex, mobile, tel, email, note) 
-values('user_name_1', 'pwd1', 1, '13888888888', '010-88888888', 'y666@163.com', 'note_1');
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
+-- ----------------------------
+-- Table structure for t_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_role`;
+CREATE TABLE `t_role`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `note` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-/* 将性别名称修改为varchar型，用以测试EnumTypeHandler*/
-alter table t_user modify sex varchar(10);
-update t_user set sex = 'FEMALE' where sex = '1';
-update t_user set sex = 'MALE' where sex = '0';
+-- ----------------------------
+-- Records of t_role
+-- ----------------------------
+INSERT INTO `t_role` VALUES (1, 'role_name_1', 'note_1');
+INSERT INTO `t_role` VALUES (2, 'role_name_2', 'note_2');
+INSERT INTO `t_role` VALUES (3, 'role_name_3', 'note_3');
 
+-- ----------------------------
+-- Table structure for t_user
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `real_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `sex` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `moble` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `note` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `index_user`(`user_name`, `real_name`, `sex`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-/***测试自定义typeHandler****/
-update t_user set sex='0' where sex = 'FEMALE';
-update t_user set sex='1' where sex = 'MALE';
-alter table t_user modify sex int(10);  
+-- ----------------------------
+-- Records of t_user
+-- ----------------------------
+INSERT INTO `t_user` VALUES (1, 'user_name1', 'real_name1', '1', '123', '123', '1');
+INSERT INTO `t_user` VALUES (2, 'user_name2', 'real_name2', '0', '234', '234', '2');
+INSERT INTO `t_user` VALUES (3, 'user_name3', 'real_name3', 'FEMALE', '345', '345', '3');
+INSERT INTO `t_user` VALUES (4, 'user_name4', 'real_name4', 'MALE', '456', '456', '4');
 
+-- ----------------------------
+-- Table structure for t_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_role`;
+CREATE TABLE `t_user_role`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `user_id` int(0) NOT NULL,
+  `role_id` int(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `user_id`(`user_id`, `role_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_user_role
+-- ----------------------------
+
+SET FOREIGN_KEY_CHECKS = 1;

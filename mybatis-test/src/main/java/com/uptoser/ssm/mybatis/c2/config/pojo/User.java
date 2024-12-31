@@ -70,4 +70,16 @@ public class User {
 		this.note = note;
 	}
 
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", userName='" + userName + '\'' +
+				", sex=" + sex +
+				", mobile='" + mobile + '\'' +
+				", tel='" + tel + '\'' +
+				", email='" + email + '\'' +
+				", note='" + note + '\'' +
+				'}';
+	}
 }
