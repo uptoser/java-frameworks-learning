@@ -110,6 +110,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("validatePage").setViewName("validate");
         registry.addViewController("formPage").setViewName("form");
         registry.addViewController("paramsPage").setViewName("params");
+        registry.addViewController("formatterPage").setViewName("formatter");
 //		registry.addRedirectViewController("teset111", "aaa111");
     }
 

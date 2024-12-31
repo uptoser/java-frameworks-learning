@@ -6,7 +6,7 @@
         <title>date</title>
     </head>
     <body>
-        <form id="form" action="./convert/formatPojo.do">
+        <form id="form" action="./convert/formatPojo">
             <table>
                 <tr>
                     <td>日期</td>

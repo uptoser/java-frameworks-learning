@@ -1,11 +1,17 @@
 package com.uptoser.ssm.springmvc.web;
 
+import com.uptoser.ssm.springmvc.pojo.FormatPojo;
 import com.uptoser.ssm.springmvc.pojo.Role;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,23 +64,39 @@ public class ConvertController {
 	}
 
 
-//	@RequestMapping("/format")
-//	public ModelAndView format(
-//		//日期格式化
-//		@RequestParam("date1") @DateTimeFormat(iso = ISO.DATE) Date date,
-//		//金额格式化
-//		@RequestParam("amount1") @NumberFormat(pattern = "#,###.##") Double amount) {
-//		ModelAndView mv = new ModelAndView("index");
-//		mv.addObject("date", date);
-//		mv.addObject("amount", amount);
-//		return mv;
-//	}
+	/**
+	 * 有些数据需要格式化，为了对这些场景做出支持，Spring Context提供了相关的Formatter需要实现
+	 * Formatter又扩展了两个接口：
+	 *   Printer 能将结果按照一定的格式输出字符串
+	 *   Parser 能够将满足一定格式的字符串转换为对象
+	 * 它的内部实际是委托给Converter机制去实现的，我们需要自定义的场合并不多
+	 *
+	 * 在Spring 内部用得比较多的两个注解是@DateTimeFormat和@NumberFormat
+	 * 格式化器在 Spring MVC 中是由系统在启动时完成初始化的，所以并不需要进行干预
+	 *
+	 *
+	 */
+	@RequestMapping("/format")
+	public ModelAndView format(
+		//日期格式化
+		@RequestParam("date1") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date,
+		//金额格式化
+		@RequestParam("amount1") @NumberFormat(pattern = "#,###.##") Double amount) {
+
+		System.out.println(date+"-"+amount);
+
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("date", date);
+		mv.addObject("amount", amount);
+		return mv;
+	}
 	
-//	@RequestMapping("/formatPojo")
-//	public ModelAndView formatPojo(FormatPojo pojo) {
-//		ModelAndView mv = new ModelAndView("index");
-//		mv.addObject("date", pojo.getDate1());
-//		mv.addObject("amount", pojo.getAmount1());
-//		return mv;
-//	}
+	@RequestMapping("/formatPojo")
+	public ModelAndView formatPojo(FormatPojo pojo) {
+		System.out.println(pojo);
+		ModelAndView mv = new ModelAndView("index");
+		mv.addObject("date", pojo.getDate1());
+		mv.addObject("amount", pojo.getAmount1());
+		return mv;
+	}
 }
