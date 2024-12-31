@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.uptoser.ssm.mybatis.c2.config.mapper.RoleMapper">
 
+<!--映射器定义命名空间（namespace）的方法，命名空间对应的是一个接口的全路径，而不是实现类-->
+<mapper namespace="com.uptoser.ssm.mybatis.c2.config.mapper.RoleMapper">
 	<resultMap id="roleMapper" type="role">
 		<result property="id" column="id" />
 		<result property="roleName" column="role_name" jdbcType="VARCHAR"

@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 /**
  * 自义定事务实现类
+ * MyBatis 为Transaction 提供了两个实现类：JdbcTransaction 和ManagedTransaction。要实现接口 Transaction
+ * 对应着两种工厂：JdbcTransactionFactory和ManagedTransactionFactory。工厂需要实现TransactionFactory接口
  */
 public class MyTransaction extends JdbcTransaction implements Transaction {
 

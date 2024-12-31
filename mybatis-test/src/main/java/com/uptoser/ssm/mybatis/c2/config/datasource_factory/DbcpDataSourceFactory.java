@@ -8,6 +8,7 @@ import java.util.Properties;
 
 /**
  * 自定义数据源工厂
+ * MyBatis 也支持第三方数据源，例如使用 DBCP 数据源，那么需要提供一个自定义的DataSourceFactory
  */
 public class DbcpDataSourceFactory implements DataSourceFactory {
 	private Properties props = null;

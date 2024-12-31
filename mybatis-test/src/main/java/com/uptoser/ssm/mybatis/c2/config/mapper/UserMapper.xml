@@ -6,12 +6,12 @@
 	<resultMap id="userMapper" type="user">
 		<result property="id" column="id" />
 		<result property="userName" column="user_name" />
-		<result property="sex" column="sex"
-            typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>
+<!--		<result property="sex" column="sex"-->
+<!--            typeHandler="org.apache.ibatis.type.EnumOrdinalTypeHandler"/>-->
 <!--        <result property="sex" column="sex"-->
 <!--            typeHandler="org.apache.ibatis.type.EnumTypeHandler"/> -->
-<!--        <result property="sex" column="sex"-->
-<!--            typeHandler="com.uptoser.ssm.mybatis.c2.config.type_handler.SexEnumTypeHandler"/>-->
+        <result property="sex" column="sex"
+            typeHandler="com.uptoser.ssm.mybatis.c2.config.type_handler.SexEnumTypeHandler"/>
 		<result property="mobile" column="mobile" />
 		<result property="tel" column="tel" />
 		<result property="email" column="email" />
@@ -20,5 +20,10 @@
 	<select id="getUser" resultMap="userMapper" parameterType="long">
 	  select id, user_name, sex,  email, note from t_user
       where id = #{id}
+	</select>
+	<!-- 如果是oracle数据库将使用下条语句 -->
+	<select id="getUser" resultMap="userMapper" parameterType="long" databaseId="oracle">
+		select id, user_name, sex,  email, note from t_user
+		where id = #{id}
 	</select>
 </mapper>

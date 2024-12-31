@@ -87,17 +87,32 @@
           </dataSource>
         </environment>
       </environments>
-      <!--数据库厂商标识-->
-    <!--当databaseIdProvidertype属性被配置时，系统会优先取到和数据库配置一致的SQL。如果没有，则取没有databaseId的SQL，可以把它当作默认值。如果还是取不到，则会抛出异常-->
+  <!--数据库厂商标识-->
+  <!--
+  当databaseIdProvider type属性被配置时，系统会优先取到和数据库配置一致的SQL。
+  如果没有，则取没有databaseId的SQL，可以把它当作默认值。如果还是取不到，则会抛出异常
+
+  property元素的属性name是数据库的名称，如果不确定如何填写，
+  那么可以使用JDBC创建其数据库连接对象 Connection，
+  然后通过代码 connection.getMetaData().getDatabaseProductName()获取。
+  而属性value是它的一个别名，在MyBatis里可以通过这个别名标识一条SQL适用于哪种数据库运行
+
+  在mapper中可以通过databaseId来指定哪种数据库使用哪条语句
+  -->
 <!--  <databaseIdProvider type="DB_VENDOR">-->
 <!--    <property name="Oracle" value="oracle"/>-->
 <!--      <property name="MYSQL" value="mysql"/>-->
 <!--      <property name="DB2" value="db2"/>-->
 <!--  </databaseIdProvider>-->
+  <!--自定义数据库厂商标识-->
+  <databaseIdProvider type="com.uptoser.ssm.mybatis.c2.config.databaseidprovider.MyDatabaseIdProvider">
+    <property name="msg" value="自定义DatabaseIdProvider"/>
+  </databaseIdProvider>
   <!-- 引入映射器 -->
   <mappers>
 <!--      <mapper resource=""/>用文件路径引入映射器-->
 <!--      <mapper class=""/>用类注册引入映射器-->
+<!--      <mapper url=""/>-->
       <!--用包名引入映射器-->
       <package name="com.uptoser.ssm.mybatis.c2.config.mapper" />
   </mappers>
