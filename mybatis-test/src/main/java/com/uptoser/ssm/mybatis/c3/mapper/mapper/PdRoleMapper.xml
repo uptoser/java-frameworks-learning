@@ -2,34 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uptoser.ssm.mybatis.c3.mapper.mapper.PdRoleMapper">
+	<!--
+        简单存储过程
+        指定statemetType为CALLABLE，说明它是在使用存储过程，如果不这样声明那么这段代码将会抛出异常。
+        定义了parameterType为PdCountRoleParams参数。
+        在调度存储过程中放入参数对应的属性，并且在属性上通过 mode 设置了其输入或者输出参数，指定对应的jdbcType，
+        这样MyBatis就会使用对应的typeHandler去处理对应的类型转换
+        -->
+	<select id="countRole" parameterType="com.uptoser.ssm.mybatis.c3.mapper.param.PdCountRoleParams"
+			statementType="CALLABLE">
+		{call count_role(
+				#{roleName, mode=IN, jdbcType=VARCHAR},
+				#{total, mode=OUT, jdbcType=INTEGER},
+				#{execDate, mode=OUT, jdbcType=DATE}
+			)}
+	</select>
 
-
+	<!--
+        在实际应用中，除了使用简易的输入输出参数，有时候也可能使用游标，MyBatis 也对存储过程的游标提供了支持。
+        如果把jdbcType声明为CURSOR，那么它就会使用ResultSet对象处理对应的结果，
+        只要设置映射关系，MyBatis 就会把结果集映射出来
+        -->
 	<resultMap type="role" id="roleMap2">
 		<id property="id" column="id" />
 		<result property="roleName" column="role_name" />
 		<result property="note" column="note" />
 	</resultMap>
-
-	<select id="countRole" parameterType="com.uptoser.ssm.mybatis.c3.mapper.param.PdCountRoleParams"
-		statementType="CALLABLE">
-		{call count_role(
-		#{roleName, mode=IN, jdbcType=VARCHAR},
-		#{total, mode=OUT, jdbcType=INTEGER},
-		#{execDate, mode=OUT, jdbcType=DATE}
-		)}
-	</select>
-
+	<!--
+	根据角色名称（role_name）模糊查询角色表的数据，但要求支持分页查询，于是存在start和end两个分页参数。
+	为了知道是否存在下一页，还会要求查询出总数（total），于是便存在这样的一个存储过程
+	-->
 	<select id="findRole" parameterType="com.uptoser.ssm.mybatis.c3.mapper.param.PdFindRoleParams"
 		statementType="CALLABLE">
 		{call find_role(
 		#{roleName, mode=IN, jdbcType=VARCHAR},
-		#{start, mode=IN,
-		jdbcType=INTEGER},
+		#{start, mode=IN,jdbcType=INTEGER},
 		#{end, mode=IN, jdbcType=INTEGER},
-		#{total, mode=OUT,
-		jdbcType=INTEGER},
-		#{roleList,mode=OUT,jdbcType=CURSOR,
-		javaType=ResultSet,resultMap=roleMap2}
+		#{total, mode=OUT,jdbcType=INTEGER},
+		#{roleList,mode=OUT,jdbcType=CURSOR,javaType=ResultSet,resultMap=roleMap2}
 		)}
 	</select>
 </mapper>

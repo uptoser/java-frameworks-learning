@@ -1,145 +1,105 @@
-create table t_role (
-id int(12) auto_increment,
-role_name varchar(60) not null,
-note varchar(256) null,
-primary key(id)
-);
+/*
+ Navicat Premium Data Transfer
 
-insert into t_role(role_name, note) values('role_name_1', 'note_1');
-insert into t_role(role_name, note) values('role_name_2', 'note_2');
-insert into t_role(role_name, note) values('role_name_3', 'note_3');
+ Source Server         : 192.168.3.200_3306
+ Source Server Type    : MySQL
+ Source Server Version : 80028
+ Source Host           : 192.168.3.200:3306
+ Source Schema         : mybatis-test
 
-create table t_role2 (
-id int(12),
-role_name varchar(60) not null,
-note varchar(256) null,
-primary key(id)
-);
+ Target Server Type    : MySQL
+ Target Server Version : 80028
+ File Encoding         : 65001
 
-create table t_user (
-id int(12) auto_increment, 
-user_name varchar(60) not null, 
-real_name VARCHAR(60) NOT NULL, 
-sex int(3), 
-moble VARCHAR(20) NOT NULL, 
-email VARCHAR(60) NOT NULL, 
-note VARCHAR(256) NOT NULL,
-primary key(id)
-);
+ Date: 01/01/2025 11:16:20
+*/
 
-create table t_user_role (
-id INT(12) AUTO_INCREMENT, 
-user_id int(12) not null,
-role_id int(12) not null,
- PRIMARY KEY(id),
- unique(user_id, role_id)
-) ;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-DROP TABLE IF EXISTS t_female_health_form;
-DROP TABLE IF EXISTS t_male_health_form;
-DROP TABLE IF EXISTS t_task;
-DROP TABLE IF EXISTS t_work_card;
-DROP TABLE IF EXISTS t_employee_task;
-DROP TABLE IF EXISTS t_employee;
+-- ----------------------------
+-- Table structure for t_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_role`;
+CREATE TABLE `t_role`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `role_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `note` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-/*==============================================================*/
-/* Table: t_employee                                            */
-/*==============================================================*/
-CREATE TABLE t_employee
-(
-   id                   INT(12) NOT NULL AUTO_INCREMENT,
-   real_name            VARCHAR(60) NOT NULL,
-   sex                  INT(2) NOT NULL COMMENT '1 - �� 
-            0 -Ů',
-   birthday             DATE NOT NULL,
-   mobile               VARCHAR(20) NOT NULL,
-   email                VARCHAR(60) NOT NULL,
-   POSITION             VARCHAR(20) NOT NULL,
-   note                 VARCHAR(256),
-   PRIMARY KEY (id)
-);
+-- ----------------------------
+-- Records of t_role
+-- ----------------------------
+INSERT INTO `t_role` VALUES (1, 'role_name_1', 'note_1');
+INSERT INTO `t_role` VALUES (2, 'role_name_2', 'note_2');
+INSERT INTO `t_role` VALUES (3, 'role_name_3', 'note_3');
+INSERT INTO `t_role` VALUES (7, 'role_name_5', 'note_5');
+INSERT INTO `t_role` VALUES (8, 'role_name_5', 'note_5');
+INSERT INTO `t_role` VALUES (14, 'role_name', 'note');
 
-/*==============================================================*/
-/* Table: t_employee_task                                       */
-/*==============================================================*/
-CREATE TABLE t_employee_task
-(
-   id                   INT(12) NOT NULL auto_increment,
-   emp_id               INT(12) NOT NULL,
-   task_id              INT(12) NOT NULL,
-   task_name            VARCHAR(60) NOT NULL,
-   note                 VARCHAR(256),
-   PRIMARY KEY (id)
-);
 
-/*==============================================================*/
-/* Table: t_female_health_form                                  */
-/*==============================================================*/
-CREATE TABLE t_female_health_form
-(
-   id                   INT(12) NOT NULL AUTO_INCREMENT,
-   emp_id               INT(12) NOT NULL,
-   heart                VARCHAR(64) NOT NULL,
-   liver                VARCHAR(64) NOT NULL,
-   spleen               VARCHAR(64) NOT NULL,
-   lung                 VARCHAR(64) NOT NULL,
-   kidney               VARCHAR(64) NOT NULL,
-   uterus               VARCHAR(64) NOT NULL,
-   note                 VARCHAR(256),
-   PRIMARY KEY (id)
-);
 
-/*==============================================================*/
-/* Table: t_male_health_form                                    */
-/*==============================================================*/
-CREATE TABLE t_male_health_form
-(
-   id                   INT(12) NOT NULL AUTO_INCREMENT,
-   emp_id               INT(12) NOT NULL,
-   heart                VARCHAR(64) NOT NULL,
-   liver                VARCHAR(64) NOT NULL,
-   spleen               VARCHAR(64) NOT NULL,
-   lung                 VARCHAR(64) NOT NULL,
-   kidney               VARCHAR(64) NOT NULL,
-   prostate             VARCHAR(64) NOT NULL,
-   note                 VARCHAR(256),
-   PRIMARY KEY (id)
-);
+-- ----------------------------
+-- Table structure for t_user
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user`;
+CREATE TABLE `t_user`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `real_name` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `sex` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `moble` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `note` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `index_user`(`user_name`, `real_name`, `sex`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-/*==============================================================*/
-/* Table: t_task                                                */
-/*==============================================================*/
-CREATE TABLE t_task
-(
-   id                   INT(12) NOT NULL auto_increment,
-   title                VARCHAR(60) NOT NULL,
-   context              VARCHAR(256) NOT NULL,
-   note                 VARCHAR(256),
-   PRIMARY KEY (id)
-);
+-- ----------------------------
+-- Records of t_user
+-- ----------------------------
+INSERT INTO `t_user` VALUES (1, 'user_name1', 'real_name1', '1', '123', '123', '1');
+INSERT INTO `t_user` VALUES (2, 'user_name2', 'real_name2', '0', '234', '234', '2');
+INSERT INTO `t_user` VALUES (3, 'user_name3', 'real_name3', 'FEMALE', '345', '345', '3');
+INSERT INTO `t_user` VALUES (4, 'user_name4', 'real_name4', 'MALE', '456', '456', '4');
 
-/*==============================================================*/
-/* Table: t_work_card                                           */
-/*==============================================================*/
-CREATE TABLE t_work_card
-(
-   id                   INT(12) NOT NULL AUTO_INCREMENT,
-   emp_id               INT(12) NOT NULL,
-   real_name            VARCHAR(60) NOT NULL,
-   department           VARCHAR(20) NOT NULL,
-   mobile               VARCHAR(20) NOT NULL,
-   POSITION             VARCHAR(30) NOT NULL,
-   note                 VARCHAR(256),
-   PRIMARY KEY (id)
-);
+-- ----------------------------
+-- Table structure for t_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_role`;
+CREATE TABLE `t_user_role`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `user_id` int(0) NOT NULL,
+  `role_id` int(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `user_id`(`user_id`, `role_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
-ALTER TABLE t_employee_task ADD CONSTRAINT FK_Reference_4 FOREIGN KEY (emp_id)
-      REFERENCES t_employee (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE t_employee_task ADD CONSTRAINT FK_Reference_8 FOREIGN KEY (task_id)
-      REFERENCES t_task (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE t_female_health_form ADD CONSTRAINT FK_Reference_5 FOREIGN KEY (emp_id)
-      REFERENCES t_employee (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE t_male_health_form ADD CONSTRAINT FK_Reference_6 FOREIGN KEY (emp_id)
-      REFERENCES t_employee (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
-ALTER TABLE t_work_card ADD CONSTRAINT FK_Reference_7 FOREIGN KEY (emp_id)
-      REFERENCES t_employee (id) ON DELETE RESTRICT ON UPDATE RESTRICT;
+-- ----------------------------
+-- Records of t_user_role
+-- ----------------------------
+INSERT INTO `t_user_role` VALUES (1, 1, 1);
+INSERT INTO `t_user_role` VALUES (2, 1, 2);
+INSERT INTO `t_user_role` VALUES (4, 1, 3);
+INSERT INTO `t_user_role` VALUES (3, 2, 1);
+INSERT INTO `t_user_role` VALUES (5, 2, 3);
+INSERT INTO `t_user_role` VALUES (6, 3, 2);
+INSERT INTO `t_user_role` VALUES (7, 3, 3);
+
+-- ----------------------------
+-- Procedure structure for count_role
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `count_role`;
+delimiter ;;
+CREATE PROCEDURE `count_role`(IN p_role_name VARCHAR(20),OUT count_total INT,OUT exec_date DATE)
+BEGIN
+
+SELECT COUNT(*) INTO count_total FROM t_role WHERE role_name LIKE CONCAT('%',p_role_name,'%');
+SELECT CURDATE() INTO exec_date;
+
+END
+;;
+delimiter ;
+
+SET FOREIGN_KEY_CHECKS = 1;

@@ -2,36 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uptoser.ssm.mybatis.c3.mapper.mapper.RoleMapper">
+	<!--开启二级缓存-->
+<!--	<cache/>-->
+
 	<resultMap id="roleMap" type="role">
 		<id property="id" column="id" />
 		<result property="roleName" column="role_name" />
 		<result property="note" column="note" />
 	</resultMap>
-
-	<select id="getRoleUseResultMap" parameterType="long" resultMap="roleMap">
-		select id, role_name, note from t_role where id = #{id}
-	</select>
+	<!--
+	sql元素的作用在于可以定义一条SQL的一部分，方便后面的SQL引用它
+	sql元素还支持变量传递
+	${alias}.id,${alias}.role_name
+	-->
+	<sql id="roleCols">id, role_name , note</sql>
 
 	<select id="getRole" parameterType="long" resultType="role">
-		select id,
-		role_name as roleName, note from t_role where id = #{id}
+		select <include refid="roleCols"/> from t_role where id = #{id}
 	</select>
-
+	<!--
+	元素含义：
+	●id 配合 Mapper 的全限定名，联合成为一个唯一的标识（在不考虑数据库厂商标识的前提下），用于标识这条SQL。
+	●parameterType表示这条SQL接受的参数类型，可以是MyBatis系统定义或者自定义的别名，比如int、string、float等，
+	也可以是类的全限定名，比如com.uptoser.ssm.mybatis.c3.mapper.pojo.User。
+	●resultType表示这条SQL返回的结果类型，与parameterType一样，可以是系统定义或者自定义的别名，也可以是类的全限定名。
+	●#{roleName}是被传递进去的参数。
+	-->
+	<select id="countRoleByName" parameterType="string" resultType="_int">
+		select count(id) from t_role where role_name like concat('%',#{roleName},'%')
+	</select>
+	<!--使用Map传递多个参数-->
 	<select id="findRolesByMap" parameterType="map" resultType="role">
 		select id, role_name as roleName, note from t_role
-		where role_name like
-		concat('%', #{roleName}, '%')
+		where role_name like concat('%', #{roleName}, '%')
 		and note like concat('%', #{note}, '%')
 	</select>
-
+	<!--使用注解传递多个参数-->
 	<select id="findRolesByAnnotation" resultType="role">
 		select id,
-		role_name as roleName, note from t_role
+			   role_name as roleName, note from t_role
 		where role_name like
-		concat('%', #{roleName}, '%')
-		and note like concat('%', #{note}, '%')
+			  concat('%', #{roleName}, '%')
+		  and note like concat('%', #{note}, '%')
 	</select>
-
+	<!--通过Java Bean传递多个参数-->
 	<select id="findRolesByBean" parameterType="com.uptoser.ssm.mybatis.c3.mapper.param.RoleParams"
 		resultType="role">
 		select id, role_name as roleName, note from t_role
@@ -41,7 +55,7 @@
 		and note like concat('%',
 		#{note}, '%')
 	</select>
-
+	<!--混合使用几种方法来传递参数-->
 	<select id="findByMix" resultType="role">
 		select id, role_name as
 		roleName, note from t_role
@@ -52,19 +66,29 @@
 		limit #{page.start}, #{page.limit}
 	</select>
 
+	<select id="getRoleUseResultMap" parameterType="long" resultMap="roleMap">
+		select id, role_name, note from t_role where id = #{id}
+	</select>
+	<!--使用RowBounds分页-->
+	<select id="findRoleByRowBounds" resultMap="roleMap">
+		select id, role_name, note from t_role
+	</select>
 
-	<insert id="insertRole" parameterType="role" useGeneratedKeys="true"
-		keyProperty="id">
+	<!--
+	在insert语句中有一个开关属性 useGeneratedKeys，用来控制是否打开这个功能，它的默认值为false。
+	当打开了这个开关，还要配置其属性keyProperty或keyColumn，告诉系统把生成的主键放入哪个属性中，
+	如果存在多个主键，就要用逗号（,）将它们隔开
+	-->
+	<insert id="insertRole" parameterType="role" useGeneratedKeys="true" keyProperty="id">
 		insert into t_role(role_name, note) values(#{roleName},
 		#{note})
 	</insert>
-
+	<!--自定义主键-->
 	<insert id="insertRole2" parameterType="role">
 		<selectKey keyProperty="id" resultType="long" order="BEFORE">
-			select
-			if (max(id) = null, 1, max(id) + 3) from t_role
+			select if (max(id) = null, 1, max(id) + 3) from t_role
 		</selectKey>
-		insert into t_role2(id, role_name, note) values(#{id}, #{roleName},
+		insert into t_role(id, role_name, note) values(#{id}, #{roleName},
 		#{note})
 	</insert>
 

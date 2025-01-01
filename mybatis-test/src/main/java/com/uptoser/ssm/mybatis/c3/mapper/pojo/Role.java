@@ -1,8 +1,8 @@
 package com.uptoser.ssm.mybatis.c3.mapper.pojo;
 
-import java.io.Serializable;
-
 import org.apache.ibatis.type.Alias;
+
+import java.io.Serializable;
 
 @Alias("role")
 public class Role implements Serializable {
@@ -41,4 +41,12 @@ public class Role implements Serializable {
 		return serialVersionUID;
 	}
 
+	@Override
+	public String toString() {
+		return "Role{" +
+				"id=" + id +
+				", roleName='" + roleName + '\'' +
+				", note='" + note + '\'' +
+				'}';
+	}
 }

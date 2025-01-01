@@ -12,7 +12,8 @@
 	</settings>
 	
 	<typeAliases>
-		<package name="com.uptoser.ssm.mybatis.c3.mapper.pojo" />
+		<package name="com.uptoser.ssm.mybatis.c4.cascade.pojo" />
+		<package name="com.uptoser.ssm.mybatis.c4.cascade.pojo2" />
 	</typeAliases>
 
 	<environments default="development">
@@ -28,6 +29,7 @@
 	</environments>
 
 	<mappers>
-		<package name="com.uptoser.ssm.mybatis.c3.mapper.mapper" />
+		<package name="com.uptoser.ssm.mybatis.c4.cascade.mapper" />
+		<package name="com.uptoser.ssm.mybatis.c4.cascade.mapper2" />
 	</mappers>
 </configuration>
