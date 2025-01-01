@@ -1,6 +1,5 @@
 package com.uptoser.ssm.spring.c4.db.mapper;
 import com.uptoser.ssm.spring.c4.db.pojo.Role;
-import org.jboss.logging.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository

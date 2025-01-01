@@ -117,18 +117,129 @@ public class Main {
 
 		可以看到MapperProxy类中的invoke方法逻辑
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-			return Object.class.equals(method.getDeclaringClass()) ? method.invoke(this, args) : this.cachedInvoker(method).invoke(proxy, method, args, this.sqlSession);
+			try {
+			  if (Object.class.equals(method.getDeclaringClass())) {
+				return method.invoke(this, args);
+			  }
+			  return cachedInvoker(method).invoke(proxy, method, args, sqlSession);
+			} catch (Throwable t) {
+			  throw ExceptionUtil.unwrapThrowable(t);
+			}
 		}
+		invoke首先判断是否是一个类，这里Mapper是一个接口不是类，所以判定失败。
+		然后会生成MapperMethod对象，它是通过cachedMapperMethod方法对其初始化的。
+		最后执行execute方法，把SqlSession和当前运行的参数传递进去
 
-		相信大家已经知道 MyBatis 为什么只用 Mapper 接口便能够运行了，
-		因为Mapper的XML文件的命名空间对应的是这个接口的全限定名，而方法就是那条SQL的id，
+		Mapper的XML文件的命名空间对应的是这个接口的全限定名，而方法就是那条SQL的id，
 		这样MyBatis就可以根据全路径和方法名，将其和代理对象绑定起来。
 		通过动态代理技术，让这个接口运行起来，而后采用命令模式。
 		最后使用SqlSession接口的方法使得它能够执行对应的 SQL。
 		 */
 		RoleMapper roleMapper = sqlSession.getMapper(RoleMapper.class);
 		Role role = roleMapper.getRole(1L);
-		System.out.println(role);
+		//上面的代码相当于：
+		//Role role = sqlSession.selectOne("com.uptoser.ssm.mybatis.c1.builder.mapper.RoleMapper.getRole",1L);
+
+		/*
+		显然通过类名和方法名字就可以匹配到配置的SQL。
+		而实际上SqlSession的执行过程是通过Executor、StatementHandler、ParameterHandler和ResultSetHandler来完成数据库操作和结果返回的
+		selectList(){
+			return executor.query(ms, wrapCollection(parameter), rowBounds, handler);
+		}
+		●Executor代表执行器，由它调度StatementHandler、ParameterHandler、ResultSetHandler等来执行对应的SQL。
+		先看看MyBatis是如何创建Executor的，这段代码在Configuration类当中
+		public Executor newExecutor(Transaction transaction, ExecutorType executorType) {
+			executorType = executorType == null ? defaultExecutorType : executorType;
+			Executor executor;
+			if (ExecutorType.BATCH == executorType) {
+			  executor = new BatchExecutor(this, transaction);
+			} else if (ExecutorType.REUSE == executorType) {
+			  executor = new ReuseExecutor(this, transaction);
+			} else {
+			  executor = new SimpleExecutor(this, transaction);
+			}
+			if (cacheEnabled) {
+			  executor = new CachingExecutor(executor);
+			}
+			return (Executor) interceptorChain.pluginAll(executor);
+		}
+		MyBatis 将根据配置类型去确定需要创建哪一种 Executor，它的缓存则用CachingExecutor进行包装Executor。
+		在运用插件时，拦截Executor就有可能获取这样的一个对象了
+		以 SIMPLE 执行器 SimpleExecutor 的 query 方法作为例子
+		try{
+			Configuration configuration = ms.getConfiguration();
+			StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler,boundSql);
+			stmt = prepareStatement(handler, ms.getStatementLog());
+			return handler.query(stmt, resultHandler);
+		}
+		显然MyBatis根据Configuration来构建StatementHandler，然后使用prepareStatement方法，对SQL编译和参数进行初始化
+		private Statement prepareStatement(StatementHandler handler, Log statementLog) throws SQLException {
+			Statement stmt;
+			Connection connection = getConnection(statementLog);
+			stmt = handler.prepare(connection, transaction.getTimeout());
+			handler.parameterize(stmt);
+			return stmt;
+		}
+		实现过程：它调用了StatementHandler的prepare（）进行了预编译和基础的设置，
+		然后通过 StatementHandler 的 parameterize（）来设置参数，
+		最后使用StatementHandler的query方法，把ResultHandler传递进去，
+		使用它组织结果返回给调用者来完成一次查询，这样焦点又转移到了StatementHandler对象上
+
+		●StatementHandler的作用是使用数据库的Statement（PreparedStatement）执行操作，它是四大对象的核心，起到承上启下的作用
+		通过源码可知创建的真实对象是一个 RoutingStatementHandler 的对象，它实现了接口StatementHandler。和Executor一样，用代理对象做一层层封装。
+		RoutingStatementHandler 不是真实的服务对象，它是通过适配模式来找到对应的StatementHandler来执行的。
+		在MyBatis中，与Executor一样，RoutingStatementHandler分为3种：
+		SimpleStatementHandler、PreparedStatementHandler、CallableStatementHandler。
+		它所对应的是JDBC的Statement、PreparedStatement（预编译处理）和CallableStatement（存储过程处理）
+
+		以最常用的PreparedStatementHandler为例，看看MyBatis是怎么执行查询的
+		Executor执行查询时会执行 StatementHandler 的 prepare、parameterize 和 query 方法
+		1. 执行prepare方法：
+		instantiateStatement（）方法是对SQL进行了预编译，然后做一些基础配置，比如超时、获取的最大行数等的设置。
+		2. Executor中会调用 parameterize（）方法去设置参数：
+		public void parameterize(Statement statement) throws SQLException {
+			parameterHandler.setParameters((PreparedStatement) statement);
+		}
+		显然这个时候它是调用 ParameterHandler 去完成的
+		3. 执行query方法
+		return resultSetHandler.handleResultSets(ps);
+
+		总结一条查询SQL的执行过程：
+		Executor先调用StatementHandler的prepare（）方法预编译SQL，同时设置一些基本运行的参数。
+		然后用 parameterize（）方法启用 ParameterHandler 设置参数，完成预编译，执行查询，update（）也是这样的。
+		如果是查询，MyBatis 会使用ResultSetHandler封装结果返回给调用者。
+
+		●ParameterHandler是用来处理SQL参数的。
+		ParameterHandler接口有两个方法:
+		getParameterObject（）方法的作用是返回参数对象。
+		setParameters（）方法的作用是设置预编译SQL语句的参数。
+
+		MyBatis为ParameterHandler提供了一个实现类DefaultParameterHandler
+		DefaultParameterHandler中setParameters的实现
+		它还是从parameterObject对象中取到参数，然后使用typeHandler转换参数，
+		如果有设置，那么它会根据签名注册的typeHandler对参数进行处理。
+		而typeHandler也是在MyBatis初始化时，注册在 Configuration 里面的，需要时就可以直接拿来用了，
+		MyBatis 就是通过这样完成参数设置的
+
+		●ResultSetHandler是进行数据集（ResultSet）的封装返回处理的
+		其中，handleOutputParameters（）方法是处理存储过程输出参数的。
+		handleResultSets（）方法，它是包装结果集的。
+		MyBatis 提供了一个DefaultResultSetHandler的实现类，在默认情况下都是通过这个类进行处理的
+		实现有些复杂，因为它涉及使用JAVASSIST（或者CGLIB）作为延迟加载，
+		然后通过typeHandler和ObjectFactory 进行组装结果再返回
+
+		SqlSession内部运行总结
+		SqlSession是通过执行器Executor调度StatementHandler来运行的。而StatementHandler经过3步：
+		●prepared预编译SQL。
+		●parameterize设置参数。
+		●query/update 执行SQL。
+		其中，parameterize是调用parameterHandler的方法设置的，而参数是根据类型处理器typeHandler处理的。
+		query/update方法通过ResultSetHandler进行处理结果的封装，
+		如果是update 语句，就返回整数，否则就通过 typeHandler 处理结果类型，
+		然后用 ObjectFactory提供的规则组装对象，返回给调用者
+		*/
+
+		//关闭sqlSession
 		sqlSession.close();
 	}
 
