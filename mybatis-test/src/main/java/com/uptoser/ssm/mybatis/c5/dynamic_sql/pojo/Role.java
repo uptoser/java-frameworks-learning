@@ -6,6 +6,15 @@ public class Role {
 	private String roleName;
 	private String note;
 
+	@Override
+	public String toString() {
+		return "Role{" +
+				"roleNo='" + roleNo + '\'' +
+				", roleName='" + roleName + '\'' +
+				", note='" + note + '\'' +
+				'}';
+	}
+
 	public String getRoleNo() {
 		return roleNo;
 	}

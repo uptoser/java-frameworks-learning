@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ssm.chapter6.mapper.RoleMapper">
+<mapper namespace="com.uptoser.ssm.mybatis.c5.dynamic_sql.mapper.RoleMapper">
 
-	<resultMap id="roleResultMap" type="com.ssm.chapter6.pojo.Role">
-		<id column="roleNo" property="role_no" />
-		<id column="role_name" property="roleName" />
-		<id column="note" property="note" />
+	<resultMap id="roleResultMap" type="com.uptoser.ssm.mybatis.c5.dynamic_sql.pojo.Role">
+		<result column="role_no" property="roleNo" />
+		<result column="role_name" property="roleName" />
+		<result column="note" property="note" />
 	</resultMap>
-
+	<!--
+        if元素是最常用的判断语句，它常常与test属性联合使用
+    -->
 	<select id="findRole1" parameterType="string" resultMap="roleResultMap">
 		select role_no, role_name, note from t_role where 1=1
 		<if test="roleName != null and roleName !=''">
@@ -16,6 +18,9 @@
 		</if>
 	</select>
 
+	<!--
+	类似switch...case...default...功能
+	-->
 	<select id="findRole2" parameterType="role" resultMap="roleResultMap">
 		select role_no, role_name, note from t_role
 		where 1=1
@@ -32,7 +37,7 @@
 		</choose>
 	</select>
 
-
+	<!--当where元素里面的条件成立时，才会加入where这个SQL关键字到组装的SQL里面，否则就不加入。-->
 	<select id="findRole3" parameterType="role" resultMap="roleResultMap">
 		select role_no, role_name, note from t_role
 		<where>
@@ -44,7 +49,11 @@
 			</if>
 		</where>
 	</select>
-
+	<!--
+	有时候要去掉的是一些特殊的SQL语法，比如常见的and、or。而使用trim元素也可以达到预期效果
+	prefix 代表的是语句的前缀
+	prefixOverrides 代表的是需要去掉哪种字符串
+	-->
 	<select id="findRole4" parameterType="string" resultMap="roleResultMap">
 		select role_no, role_name, note from t_role
 		<trim prefix="where" prefixOverrides="and">
@@ -53,22 +62,7 @@
 			</if>
 		</trim>
 	</select>
-
-	<select id="findRole5" parameterType="string" resultMap="roleResultMap">
-		<bind name="pattern" value="'%' + _parameter + '%'" />
-		SELECT role_no, role_name, note FROM t_role
-		where role_name like #{pattern}
-	</select>
-
-	<select id="findRole6" resultMap="roleResultMap">
-		<bind name="pattern_roleName" value="'%' + roleName + '%'" />
-		<bind name="pattern_note" value="'%' + note + '%'" />
-		SELECT role_no, role_name, note FROM t_role
-		where role_name like
-		#{pattern_roleName}
-		and note like #{pattern_note}
-	</select>
-
+	<!--set元素遇到了逗号，它会把对应的逗号去掉-->
 	<update id="updateRole" parameterType="role">
 		update t_role
 		<set>
@@ -81,20 +75,51 @@
 		</set>
 		where role_no = #{roleNo}
 	</update>
-
+	<!--
+	foreach元素是一个循环语句，它的作用是遍历集合，它能够很好地支持数组和List、Set接口的集合，对此提供遍历功能。
+	●collection配置的roleNoList是传递进来的参数名称，它可以是一个数组、List、Set等集合。
+	●item配置的是循环中当前的元素。
+	●index配置的是当前元素在集合的位置下标。
+	●open和close配置的是以什么符号将这些集合元素包装起来。
+	●separator是各个元素的间隔符。
+	-->
 	<select id="findRoleByNums" resultMap="roleResultMap">
 		select role_no, role_name, note from t_role where role_no in
-		<foreach item="roleNo" index="index" collection="roleNoList"
-			open="(" separator="," close=")">
+		<foreach item="roleNo" index="index" collection="roleNoList" open="(" separator="," close=")">
 			#{roleNo}
 		</foreach>
 	</select>
-
+	<!--
+	有时候需要test用于判断字符串、数字和枚举等
+	-->
 	<select id="getRoleTest" parameterType="string" resultMap="roleResultMap">
 		select role_no, role_name, note from t_role
 		<if test="type == 'Y'.toString()">
 			where 1=1
 		</if>
 	</select>
+	<!--
+	bind元素的作用是通过OGNL表达式去自定义一个上下文变量，这样更方便使用。
+	在进行模糊查询时，如果是MySQL数据库，常常用到的是一个concat，它用“%”和参数相连。
+	然而在Oracle数据库则没有，Oracle数据库用连接符号“||”，这样SQL就需要提供两种形式去实现。
+	但是有了bind元素，就不必使用数据库的语言，而是使用MyBatis的动态SQL即可完成。
+
+	这里的“_parameter”代表的是传递进来的参数，它和通配符（%）连接后赋给了pattern
+	-->
+	<select id="findRole5" parameterType="string" resultMap="roleResultMap">
+		<bind name="pattern" value="'%' + _parameter + '%'" />
+		SELECT role_no, role_name, note FROM t_role
+		where role_name like #{pattern}
+	</select>
+	<!--MyBatis支持多个参数使用bind元素的用法，所以传递多个参数也没有问题-->
+	<select id="findRole6" resultMap="roleResultMap">
+		<bind name="pattern_roleName" value="'%' + roleName + '%'" />
+		<bind name="pattern_note" value="'%' + note + '%'" />
+		SELECT role_no, role_name, note FROM t_role
+		where role_name like
+		#{pattern_roleName}
+		and note like #{pattern_note}
+	</select>
+
 
 </mapper>
