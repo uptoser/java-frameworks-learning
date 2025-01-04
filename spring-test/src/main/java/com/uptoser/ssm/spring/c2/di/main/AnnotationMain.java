@@ -1,10 +1,6 @@
 package com.uptoser.ssm.spring.c2.di.main;
 
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
-import com.uptoser.ssm.spring.c1.ioc.pojo.JuiceMaker2;
+import com.uptoser.ssm.spring.c1.ioc.bean.lifecycle.BeanLifecycleJuiceMaker;
 import com.uptoser.ssm.spring.c2.di.annotation.config.ApplicationConfig;
 import com.uptoser.ssm.spring.c2.di.annotation.config.AutowiredConfig;
 import com.uptoser.ssm.spring.c2.di.annotation.controller.RoleController;
@@ -16,6 +12,9 @@ import com.uptoser.ssm.spring.c2.di.annotation.service.RoleService;
 import com.uptoser.ssm.spring.c2.di.annotation.service.RoleService2;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
 
 /**
  * spring提供了4种作用域，它会根据情况来决定是否生成新的对象。
@@ -64,7 +63,7 @@ public class AnnotationMain {
 	}
 	private static void juiceMaker2(){
 		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		JuiceMaker2 juiceMaker2 = context.getBean("juiceMaker2", JuiceMaker2.class);
+		BeanLifecycleJuiceMaker juiceMaker2 = context.getBean("lifecycle", BeanLifecycleJuiceMaker.class);
 		System.out.println(juiceMaker2);
 		context.close();
 	}

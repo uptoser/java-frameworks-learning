@@ -1,4 +1,4 @@
-package com.uptoser.ssm.spring.c1.ioc.bean;
+package com.uptoser.ssm.spring.c1.ioc.bean.lifecycle;
 
 import org.springframework.beans.factory.DisposableBean;
 

@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 	<!--BeanPostProcessor定义 -->
-	<bean id="beanPostProcessor" class="com.uptoser.ssm.spring.c1.ioc.bean.BeanPostProcessorImpl" />
+	<bean id="beanPostProcessor" class="com.uptoser.ssm.spring.c1.ioc.bean.lifecycle.BeanPostProcessorImpl" />
 
 	<!--DisposableBean定义 -->
-	<bean id="disposableBean" class="com.uptoser.ssm.spring.c1.ioc.bean.DisposableBeanImpl" />
+	<bean id="disposableBean" class="com.uptoser.ssm.spring.c1.ioc.bean.lifecycle.DisposableBeanImpl" />
 
 	<bean id="source" class="com.uptoser.ssm.spring.c1.ioc.pojo.Source">
 		<property name="fruit" value="橙汁" />
@@ -15,7 +15,7 @@
 		<property name="size" value="大杯" />
 	</bean>
 
-	<bean id="juiceMaker2" class="com.uptoser.ssm.spring.c1.ioc.pojo.JuiceMaker2"
+	<bean id="lifecycle" class="com.uptoser.ssm.spring.c1.ioc.bean.lifecycle.BeanLifecycleJuiceMaker"
 		destroy-method="destroy" init-method="init">
 		<property name="beverageShop" value="贡茶" />
 		<property name="source" ref="source" />

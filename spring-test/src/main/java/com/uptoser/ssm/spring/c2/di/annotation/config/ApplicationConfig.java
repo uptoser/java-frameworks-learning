@@ -1,21 +1,13 @@
 package com.uptoser.ssm.spring.c2.di.annotation.config;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import com.uptoser.ssm.spring.c1.ioc.pojo.JuiceMaker2;
+import com.uptoser.ssm.spring.c1.ioc.bean.lifecycle.BeanLifecycleJuiceMaker;
 import com.uptoser.ssm.spring.c1.ioc.pojo.Source;
 import com.uptoser.ssm.spring.c2.di.annotation.pojo.Role;
 import com.uptoser.ssm.spring.c2.di.annotation.service.impl.RoleServiceImpl;
-import org.apache.commons.dbcp.BasicDataSourceFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @ComponentScan(basePackageClasses = { Role.class, RoleServiceImpl.class },
@@ -74,9 +66,9 @@ public class ApplicationConfig {
 //		return dataSource;
 //	}
 	
-	@Bean(name="juiceMaker2", initMethod="init", destroyMethod="destroy")
-	public JuiceMaker2 initJuiceMaker2() {
-		JuiceMaker2 juiceMaker2 = new JuiceMaker2();
+	@Bean(name="lifecycle", initMethod="init", destroyMethod="destroy")
+	public BeanLifecycleJuiceMaker initJuiceMaker2() {
+		BeanLifecycleJuiceMaker juiceMaker2 = new BeanLifecycleJuiceMaker();
 		juiceMaker2.setBeverageShop("贡茶");
 		Source source = new Source();
 		source.setFruit("橙子");

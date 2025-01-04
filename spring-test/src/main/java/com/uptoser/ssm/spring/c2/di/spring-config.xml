@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
 	<bean id="role_1" class="com.uptoser.ssm.spring.c2.di.pojo.Role">
 		<property name="roleName" value="高级工程师" />
 		<property name="note" value="重要人员" />
@@ -20,7 +21,7 @@
 		<property name="size" value="大杯" />
 	</bean>
 
-	<bean id="juiceMaker2" class="com.uptoser.ssm.spring.c1.ioc.pojo.JuiceMaker2">
+	<bean id="lifecycle" class="com.uptoser.ssm.spring.c1.ioc.bean.lifecycle.BeanLifecycleJuiceMaker">
 		<property name="beverageShop" value="贡茶" />
 		<property name="source" ref="source" />
 	</bean>
