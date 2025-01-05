@@ -52,9 +52,11 @@ public class BeanLifecycleJuiceMaker implements BeanNameAware, BeanFactoryAware,
 
 	public void init() {
 		System.out.println("【" + this.getClass().getSimpleName() + "】执行自定义初始化方法");
+		System.out.println("------------------------------------------------------------");
 	}
 
 	public void destroy() {
+		System.out.println("------------------------------------------------------------");
 		System.out.println("【" + this.getClass().getSimpleName() + "】执行自定义销毁方法");
 	}
 

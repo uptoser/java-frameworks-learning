@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	profile="dev">
+	<!-- 开发环境才会加载Bean -->
+	<beans profile="dev">
+		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+			<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://192.168.3.200:3306/mybatis-test" />
+			<property name="username" value="mysql" />
+			<property name="password" value="mysql" />
+			<!--连接池的最大数据库连接数 -->
+			<property name="maxActive" value="255" />
+			<!--最大等待连接中的数量 -->
+			<property name="maxIdle" value="5" />
+			<!--最大等待毫秒数 -->
+			<property name="maxWait" value="10000" />
+		</bean>
+	</beans>
+</beans>

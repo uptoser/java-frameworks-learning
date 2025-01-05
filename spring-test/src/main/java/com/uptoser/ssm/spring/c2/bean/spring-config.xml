@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<!--
+	构造器注入
+	constructor-arg元素用于定义类构造方法的参数，其中index用于定义参数的位置，而value则是设置值，
+	通过这样的定义Spring便知道使用Role（String,String）这样的构造方法去创建对象了。
+	-->
+	<bean id="role1" class="com.uptoser.ssm.spring.c2.bean.xml.pojo.Role">
+		<constructor-arg index="0" value="1"/>
+		<constructor-arg index="1" value="role_name_1"/>
+		<constructor-arg index="2" value="role_note_1"/>
+	</bean>
+	<!--
+	使用setter注入
+	setter注入是Spring中最主流的注入方式，它利用Java Bean规范所定义的setter方法来完成注入，灵活且可读性高。
+	-->
+	<bean id="role2" class="com.uptoser.ssm.spring.c2.bean.xml.pojo.Role">
+		<property name="id" value="2" />
+		<property name="roleName" value="role_name_2" />
+		<property name="note" value="role_note_2" />
+	</bean>
+
+	<bean id="user1" class="com.uptoser.ssm.spring.c2.bean.xml.pojo.User">
+		<property name="id" value="1" />
+		<property name="userName" value="user_name_1" />
+		<property name="note" value="role_note_1" />
+	</bean>
+
+	<bean id="user2" class="com.uptoser.ssm.spring.c2.bean.xml.pojo.User">
+		<property name="id" value="2" />
+		<property name="userName" value="user_name_2" />
+		<property name="note" value="role_note_1" />
+	</bean>
+
+	<!--装配集合-->
+	<bean id="complexAssembly" class="com.uptoser.ssm.spring.c2.bean.xml.pojo.ComplexAssembly">
+		<property name="id" value="1" />
+		<property name="list">
+			<list>
+				<value>value-list-1</value>
+				<value>value-list-2</value>
+				<value>value-list-3</value>
+			</list>
+		</property>
+		<property name="map">
+			<map>
+				<entry key="key1" value="value-key-1" />
+				<entry key="key2" value="value-key-2" />
+				<entry key="key3" value="value-key-3" />
+			</map>
+		</property>
+		<property name="props">
+			<props>
+				<prop key="prop1">value-prop-1</prop>
+				<prop key="prop2">value-prop-2</prop>
+				<prop key="prop3">value-prop-3</prop>
+			</props>
+		</property>
+		<property name="set">
+			<set>
+				<value>value-set-1</value>
+				<value>value-set-2</value>
+				<value>value-set-3</value>
+			</set>
+		</property>
+		<property name="array">
+			<array>
+				<value>value-array-1</value>
+				<value>value-array-2</value>
+				<value>value-array-3</value>
+			</array>
+		</property>
+	</bean>
+
+	<bean id="userRoleAssembly" class="com.uptoser.ssm.spring.c2.bean.xml.pojo.UserRoleAssembly">
+		<property name="id" value="1" />
+		<property name="list">
+			<list>
+				<ref bean="role1" />
+				<ref bean="role2" />
+			</list>
+		</property>
+		<property name="map">
+			<map>
+				<entry key-ref="role1" value-ref="user1" />
+				<entry key-ref="role2" value-ref="user2" />
+			</map>
+		</property>
+		<property name="set">
+			<set>
+				<ref bean="role1" />
+				<ref bean="role2" />
+			</set>
+		</property>
+	</bean>
+</beans>
