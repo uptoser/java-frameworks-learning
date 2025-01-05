@@ -1,21 +1,17 @@
 package com.uptoser.ssm.spring.c2.di.main;
 
-import com.uptoser.ssm.spring.c2.di.pojo.UserRoleAssembly;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 public class XmlMain {
 
 	public static void main(String[] args) {
-		test1();
+
 	}
 
-	public static void test1() {
-		ApplicationContext context = 
-	             new ClassPathXmlApplicationContext("classpath:com/uptoser/ssm/spring/c2/di/spring-config.xml");
-		UserRoleAssembly userRoleAssembly = context.getBean(UserRoleAssembly.class);
-			System.err.println(userRoleAssembly.getList().get(0).getId());
-	}
+//	public static void test1() {
+//		ApplicationContext context =
+//	             new ClassPathXmlApplicationContext("classpath:com/uptoser/ssm/spring/c2/di/spring-config.xml");
+//		UserRoleAssembly userRoleAssembly = context.getBean(UserRoleAssembly.class);
+//			System.err.println(userRoleAssembly.getList().get(0).getId());
+//	}
 	
 //	public static void test2() {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("spring-props.xml");
