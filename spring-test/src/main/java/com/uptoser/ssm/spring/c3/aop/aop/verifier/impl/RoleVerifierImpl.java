@@ -7,6 +7,6 @@ public class RoleVerifierImpl implements RoleVerifier {
 	@Override
 	public boolean verify(Role role) {
 		System.out.println("引入，检测一下角色是否为空");
-		return role != null;
+		return role == null;
 	}
 }

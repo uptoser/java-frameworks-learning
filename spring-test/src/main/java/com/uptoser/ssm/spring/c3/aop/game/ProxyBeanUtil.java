@@ -43,20 +43,20 @@ class ProxyBeanUtil implements InvocationHandler {
         //before方法
         interceptor.before(obj);
         try {
-                //反射原有方法
-                retObj = method.invoke(obj, args);
+            //反射原有方法
+            retObj = method.invoke(obj, args);
         } catch (Exception ex) {
         	exceptionFlag = true;
         } finally {
+            if (exceptionFlag) {
+                //afterThrowing方法
+                interceptor.afterThrowing(obj);
+            } else {
+                //afterReturning方法
+                interceptor.afterReturning(obj);
+            }
             //after方法
             interceptor.after(obj);
-        }
-        if (exceptionFlag) {
-        	//afterThrowing方法
-            interceptor.afterThrowing(obj);
-        } else {
-        	//afterReturning方法
-            interceptor.afterReturning(obj);
         }
         return retObj;
     }

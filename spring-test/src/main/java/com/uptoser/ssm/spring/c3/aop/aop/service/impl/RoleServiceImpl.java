@@ -9,7 +9,7 @@ public class RoleServiceImpl implements RoleService {
 	
 	@Override
 	public void printRole(Role role) {
-		System.out.println("{id: " + role.getId() + ", " 
+		System.out.println("结果返回：{id: " + role.getId() + ", "
 	        + "role_name : " + role.getRoleName() + ", "
 	        + "note : " + role.getNote() + "}");
 	}

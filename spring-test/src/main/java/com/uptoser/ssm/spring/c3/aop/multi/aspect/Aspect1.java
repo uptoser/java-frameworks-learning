@@ -8,6 +8,10 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 
+/**
+ * 通过@Order(1)只是一种实现多切面排序的方法之一，而事实是还有其他的方法，
+ * 比如也可以让切面实现Ordered（org.springframework.core.Ordered）接口，它定义了一个getOrder方法。
+ */
 @Aspect
 @Order(1)
 public class Aspect1 {
