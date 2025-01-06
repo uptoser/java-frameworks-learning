@@ -1,9 +1,9 @@
 package com.uptoser.ssm.spring.c3.aop.aop.main;
 
+import com.uptoser.ssm.spring.c2.bean.xml.pojo.Role;
 import com.uptoser.ssm.spring.c3.aop.aop.config.AopConfig;
 import com.uptoser.ssm.spring.c3.aop.aop.service.RoleService;
 import com.uptoser.ssm.spring.c3.aop.aop.verifier.RoleVerifier;
-import com.uptoser.ssm.spring.c3.aop.game.pojo.Role;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

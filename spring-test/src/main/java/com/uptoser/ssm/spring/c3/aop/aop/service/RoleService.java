@@ -1,6 +1,6 @@
 package com.uptoser.ssm.spring.c3.aop.aop.service;
 
-import com.uptoser.ssm.spring.c3.aop.game.pojo.Role;
+import com.uptoser.ssm.spring.c2.bean.xml.pojo.Role;
 
 public interface RoleService {
 	

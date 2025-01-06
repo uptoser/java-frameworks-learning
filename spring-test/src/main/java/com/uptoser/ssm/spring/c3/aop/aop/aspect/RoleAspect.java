@@ -1,31 +1,39 @@
 package com.uptoser.ssm.spring.c3.aop.aop.aspect;
 
+import com.uptoser.ssm.spring.c2.bean.xml.pojo.Role;
 import com.uptoser.ssm.spring.c3.aop.aop.verifier.RoleVerifier;
 import com.uptoser.ssm.spring.c3.aop.aop.verifier.impl.RoleVerifierImpl;
-import com.uptoser.ssm.spring.c3.aop.game.pojo.Role;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.DeclareParents;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 
 /**
- * 创建切面
+ * 在Spring中有4种方式去实现AOP的拦截功能。
+ * ●使用ProxyFactoryBean和对应的接口实现AOP。
+ * ●使用XML配置AOP。
+ * ●使用@AspectJ注解驱动切面。
+ * ●使用AspectJ注入切面。
+ */
+/*
+ * 创建切面（Aspect）
+ * 切面就是在一个怎么样的环境中工作。
+ * 比如数据库的事务直接贯穿了整个代码层面，这就是一个切面，
+ * 它能够在被代理对象的方法之前、之后，产生异常或者正常返回后切入你的代码，
+ * 甚至代替原来被代理对象的方法，在动态代理中可以把它理解成一个拦截器
  */
 @Aspect
 public class RoleAspect {
 
 	/*
-	通知（Adice）
+	通知（Advice）
 	●前置通知（before）：在动态代理反射原有对象方法或者执行环绕通知前执行的通知功能。
 	●后置通知（after）：在动态代理反射原有对象方法或者执行环绕通知后执行的通知功能。无论是否抛出异常，它都会被执行。
 	●返回通知（afterReturning）：在动态代理反射原有对象方法或者执行环绕通知后执行的通知功能。
 	●异常通知（afterThrowing）：在动态代理反射原有对象方法或者执行环绕通知产生异常后执行的通知功能。
 	●环绕通知（aroundThrowing）：在动态代理中，它可以取代当前被拦截对象的方法，通过参数或反射调用被拦截对象的方法。
+	 */
+	/*
+	引入（Introduction）
+	引入允许我们在现有的类里添加自定义的类和方法。
 	 */
 	/*
 	切点（Pointcut）
@@ -41,7 +49,13 @@ public class RoleAspect {
 	●printRole：被拦截方法名称。
 	●（..）：任意的参数。
 	 */
-
+	/*
+	织入（Weaving）
+	织入是一个生成代理对象的过程。实际代理的方法分为静态代理和动态代理。
+	静态代理是在编译class文件时生成的代码逻辑，但是在Spring中并不使用这样的方式。
+	一种是通过ClassLoader也就是在类加载的时候生成的代码逻辑，但是它在应用程序代码运行前就生成对应的逻辑。
+	还有一种是运行期，动态生成代码的方式，这是Spring AOP所采用的方式，Spring是以JDK和CGLIB动态代理来生成代理对象的
+	 */
 	/**
 	 * 引入其他的方法
 	 * ●value="......RoleServiceImpl+"：表示对RoleServiceImpl类进行增强，也就是在RoleServiceImpl中引入一个新的接口。

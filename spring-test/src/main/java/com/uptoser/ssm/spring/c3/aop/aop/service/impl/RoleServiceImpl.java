@@ -1,7 +1,7 @@
 package com.uptoser.ssm.spring.c3.aop.aop.service.impl;
 
+import com.uptoser.ssm.spring.c2.bean.xml.pojo.Role;
 import com.uptoser.ssm.spring.c3.aop.aop.service.RoleService;
-import com.uptoser.ssm.spring.c3.aop.game.pojo.Role;
 import org.springframework.stereotype.Component;
 
 @Component
