@@ -38,6 +38,7 @@
 		<property name="sqlSessionTemplate" ref="sqlSessionTemplate]"/>
     </bean>
 	-->
+	<!-- 使用自动扫描的方式创建mapper bean -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.uptoser.ssm.spring.c4.db.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
