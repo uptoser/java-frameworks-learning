@@ -12,14 +12,10 @@
         <module>mybatis-test</module>
         <module>spring-test</module>
         <module>springmvc-test</module>
-        <module>ssm-test</module>
         <module>redis-test</module>
-        <module>ConcurrentTest-RedEnvelope</module>
     </modules>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
         <spring.version>5.2.8.RELEASE</spring.version>
         <swagger2-version>2.6.1</swagger2-version>
     </properties>
