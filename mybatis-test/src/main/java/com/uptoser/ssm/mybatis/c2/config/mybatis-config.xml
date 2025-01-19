@@ -21,6 +21,8 @@
     <setting name="defaultExecutorType" value="SIMPLE" />
     <!--指定日志实现-->
     <setting name="logImpl" value="LOG4J" />
+    <!--解决，查询返回结果含null没有对应字段值问题-->
+    <setting name="callSettersOnNulls" value="true"/>
   </settings>
   <!-- 自定义别名(在MyBatis中别名不区分大小写) 也可以通过注解@Alias设置别名 -->
   <typeAliases>
