@@ -4,6 +4,10 @@ dist/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 # Editor directories and files
 .idea

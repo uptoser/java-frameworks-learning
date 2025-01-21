@@ -64,6 +64,15 @@
 			<artifactId>log4j</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>com.uptoser</groupId>
+			<artifactId>api-test</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,0 +1,1 @@
+mysqlDriver=com.uptoser.ssm.dubbo.spi.MysqlDriver
