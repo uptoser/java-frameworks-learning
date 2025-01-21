@@ -13,7 +13,7 @@
         <module>spring-test</module>
         <module>springmvc-test</module>
         <module>redis-test</module>
-        <module>dubbo-service-test</module>
+        <module>dubbo-test</module>
         <module>api-test</module>
     </modules>
 

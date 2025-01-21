@@ -8,6 +8,6 @@ public class App
     public static void main( String[] args ){
         ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("classpath*:META-INF/spring/consumer.xml");
         IDubboService service=(IDubboService)context.getBean("dubboService");
-        System.out.println(service.getMessage("-----------------\n DUBBO!!!\n -----------------"));
+        System.out.println(service.getMessage("\n -----------------\n DUBBO!!!\n -----------------"));
     }
 }
