@@ -53,8 +53,8 @@ public class RoleServiceImpl implements RoleService, ApplicationContextAware {
 //	@Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
 //	@Transactional(propagation = Propagation.NESTED, isolation = Isolation.READ_COMMITTED)
 	public int insertRole(Role role) {
-//		if(role.getRoleName().equals("role_name_3"))
-//			throw new RuntimeException("name3异常");
+		if(role.getRoleName().equals("role_name_3"))
+			throw new RuntimeException("name3异常");
 		return roleMapper.insertRole(role);
 	}
 
@@ -62,7 +62,7 @@ public class RoleServiceImpl implements RoleService, ApplicationContextAware {
 	 * 自调用
 	 */
 	@Override
-	@Transactional(propagation = Propagation.REQUIRED, isolation=Isolation.READ_COMMITTED)
+	@Transactional(propagation = Propagation.REQUIRED, isolation= Isolation.READ_COMMITTED)
 	public int insertRoleList(List<Role> roleList) {
 		int count = 0;
 		for (Role role : roleList) {
