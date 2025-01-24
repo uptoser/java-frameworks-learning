@@ -1,15 +1,5 @@
 package com.uptoser.ssm.redis.main;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.redis.connection.RedisListCommands;
@@ -19,6 +9,10 @@ import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations.TypedTuple;
 
+import java.io.UnsupportedEncodingException;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 public class C2Main {
 
 	/**
@@ -27,12 +21,12 @@ public class C2Main {
 	 */
 	public static void main(String[] args) {
 		testString();
-		testCal();
-		testRedisHash();
-		testList();
-		testBList();
-		testSet();
-		testZset();
+//		testCal();
+//		testRedisHash();
+//		testList();
+//		testBList();
+//		testSet();
+//		testZset();
 //		testHyperLogLog();
 	}
 

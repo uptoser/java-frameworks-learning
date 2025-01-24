@@ -12,6 +12,8 @@ import org.springframework.data.redis.core.SessionCallback;
 public class C1Main {
 
 	public static void main(String[] args) {
+//		testJedis();
+		//因为序列化器配置成了stringRedisSerializer，所以会报错cannot be cast to java.lang.String
 		testSpring();
 	}
 
